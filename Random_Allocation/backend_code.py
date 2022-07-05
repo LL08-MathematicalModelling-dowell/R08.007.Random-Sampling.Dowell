@@ -22,17 +22,18 @@ def random_point_allocation_input():
     data={}   
     data['selected_type']=selected_type
     if selected_type=='fieldrp':
+        name='Field Random Points'
         data['columns']=int(request.form['columns'])
         data['rows']=int(request.form['rows'])
         data['selection']=int(request.form['selection'])
         data['N']=int(request.form['N'])
-    if selected_type=='excelrp':    
+    if selected_type=='excelrp':  
+        name='Excel Random Points'  
         data['columns']=int(request.form['columns'])
         data['rows']=int(request.form['rows'])
         data['selection']=int(request.form['selection'])
-
-    return random_point_allocation(data) 
-
+    list1=random_point_allocation(data) 
+    return render_template('img.html',url='static/images/new_plot.png',list1=list1,name=name)
 
 if __name__ == "__main__":
     app.secret_key = 'super secret key'
