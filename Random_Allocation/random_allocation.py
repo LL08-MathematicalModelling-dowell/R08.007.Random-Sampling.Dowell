@@ -10,7 +10,6 @@ def random_point_allocation(data):
   rows=data['rows']
   columns=data['columns']
   selection=data['selection']
-  
   def FieldRP(columns, rows, selection, data):
       N=data['N']
 
@@ -87,21 +86,22 @@ def random_point_allocation(data):
               if i not in Z: 
                   Z.append(i)
                   list1 = Z
-      print("After",N,"th run, the list of points is:",list1)
+      # print("After",N,"th run, the list of points is:",list1)
       #Plotting points
       plt.figure(figsize=(6,6))
       data = np.array([list1])
       x, y = data.T
       plt.scatter(x,y) #Co-ordinates
       plt.plot(x,y) #Joins Co-ordinates using a line
-      plt.show()
+      # plt.show()
+      plt.savefig('static/images/new_plot.png')
       #Annotation
       n=list(range(1,N+1))
       fig, ax = plt.subplots()
       ax.scatter(x, y)
       for i, txt in enumerate(n):
           ax.annotate(txt, (x[i], y[i]))        
-      
+      return(list1)
 
   def ExcelRP(columns, rows, selection):
 
@@ -161,7 +161,7 @@ def random_point_allocation(data):
               X2.append([a,b])
         select=random.choice(X2) #Choosing N random points, one loop at a time
         list1.append(select)
-      print(list1)
+      # print(list1)
   
     else: #For random selection
       column_nos=[selection]
@@ -182,7 +182,7 @@ def random_point_allocation(data):
           select=select_init
           list1.append(select)
         column_nos.sort()
-      print(list1)
+      # print(list1)
 
 
     #Plotting points
@@ -191,7 +191,8 @@ def random_point_allocation(data):
     x, y = data.T
     plt.scatter(x,y) #Co-ordinates
     plt.plot(x,y) #Joins Co-ordinates using a line
-    plt.show()
+    # plt.show()
+    plt.savefig('static/images/new_plot.png')
     #Annotation
     n=list(range(1,N+1))
     fig, ax = plt.subplots()
@@ -199,10 +200,11 @@ def random_point_allocation(data):
     for i, txt in enumerate(n):
       ax.annotate(txt, (x[i], y[i]))
 
+    return(list1)
     
 
   if (selected_type=='fieldrp'):
-    FieldRP(columns, rows, selection,data)
+    list1=FieldRP(columns, rows, selection,data)
   if (selected_type=='excelrp'):
-    ExcelRP(columns, rows, selection)
-    
+    list1=ExcelRP(columns, rows, selection)
+  return (list1)
