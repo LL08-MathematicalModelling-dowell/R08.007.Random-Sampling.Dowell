@@ -6,13 +6,74 @@ import matplotlib.pyplot as plt
 import random
 
 def random_point_allocation(data):
+#Calling Event ID API  
+  def get_event_id():
+    from datetime import datetime
+    import requests
+    dd=datetime.now()
+    time=dd.strftime("%d:%m:%Y,%H:%M:%S")
+    url="https://100003.pythonanywhere.com/event_creation"
+
+    data={
+            "platformcode":"FB" ,
+            "citycode":"101",
+            "daycode":"0",
+            "dbcode":"pfm" ,
+            "ip_address":"192.168.0.41",
+            "login_id":"lav",
+            "session_id":"new",
+            "processcode":"1",
+            "regional_time":time,
+            "dowell_time":time,
+            "location":"22446576",
+            "objectcode":"1",
+            "instancecode":"100051",
+            "context":"afdafa ",
+            "document_id":"3004",
+            "rules":"some rules",
+            "status":"work",
+            "data_type": "learn",
+            "purpose_of_usage": "add",
+            "colour":"color value",
+            "hashtags":"hash tag alue",
+            "mentions":"mentions value",
+            "emojis":"emojis",
+        }
+    r=requests.post(url,json=data)
+    return r.text
+
+#Calling Dowell Connection        
+  def dowell_connection(field):
+    import json
+    import requests
+    url = "http://100002.pythonanywhere.com/" 
+    payload = {
+        "cluster": "license",
+        "database": "license",
+        "collection": "licenses",
+        "document": "licenses",
+        "team_member_ID": "689044433",
+        "function_ID": "ABCDE",
+        "command":"insert",
+        "field":field,
+        "update_field": {
+            "order_nos": 21
+        },
+        "platform": "bangalore"
+        }
+    headers = {
+        'Content-Type': 'application/json'
+        }
+    response = requests.post( url, headers=headers, json=payload)
+
+
+#Random Allocation Function
   selected_type=data['selected_type']
   rows=data['rows']
   columns=data['columns']
   selection=data['selection']
   def FieldRP(columns, rows, selection, data):
       N=data['N']
-
       length= columns
       width= rows
       area=length*width                                 #calculate area of rectangle
@@ -207,4 +268,10 @@ def random_point_allocation(data):
     list1=FieldRP(columns, rows, selection,data)
   if (selected_type=='excelrp'):
     list1=ExcelRP(columns, rows, selection)
+  random_allocation_data={
+    'eventId':get_event_id(),
+    'type':selected_type,
+    'listOfPoints':list1
+  }  
+  dowell_connection(random_allocation_data)
   return (list1)
