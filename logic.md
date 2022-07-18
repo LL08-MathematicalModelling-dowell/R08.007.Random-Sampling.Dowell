@@ -16,9 +16,12 @@ start
 			area_of_circle=area/N                     #calculate area of circle
 			radius=sqrt(area_of_circle/pi)            #calculate the radius of circle
 			diameter=2*radius                         #calculate the diameter of circle
+			
+			
 
 		
 		if selected_type= "excelrp"                      Note- "excelrp"=Excel Random Point
+		
 			define columns, rows, selection
 			length=columns
 			width=rows
