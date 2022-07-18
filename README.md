@@ -11,7 +11,7 @@ url = 'http://127.0.0.1:8000/api/random_allocation'
 
 data={
 
-  'selected_type':'fieldrp' ,   (Choose 'fieldrp' for Field Random Point Allocation or 'excelrp' for Excel Random Point Allocation)
+  'selected_type' : 'fieldrp' ,   (Choose 'fieldrp' for Field Random Point Allocation or 'excelrp' for Excel Random Point Allocation)
   
   'columns' : 20 ,
   
