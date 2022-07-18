@@ -12,6 +12,6 @@ start
 			
 		
 		
-		if selected_type= "excelrp"              Note- "excelrp"=Excel Random Point
+		if selected_type= "excelrp"                      Note- "excelrp"=Excel Random Point
 			define columns, rows, selection
 	
