@@ -50,6 +50,8 @@ start
 			if(selection==9):			Start from the top
 			  list1=[[0,width/2]]
 			
+			
+			
 
 		
 		if selected_type= "excelrp"                      Note- "excelrp"=Excel Random Point
