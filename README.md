@@ -13,13 +13,13 @@ data={
 
   'selected_type':'fieldrp' ,   (Choose 'fieldrp' for Field Random Point Allocation or 'excelrp' for Excel Random Point Allocation)
   
-  'columns':20,
+  'columns' : 20 ,
   
-  'rows':20,
+  'rows' : 20 , 
   
-  'selection':5,
+  'selection' : 5 ,
  
- 'N':5,
+  'N' : 5 ,
  
  }
 
