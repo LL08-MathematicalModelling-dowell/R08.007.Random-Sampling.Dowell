@@ -1,7 +1,7 @@
 # R08.007.Random-Sampling.Dowell
 
 
-## Calling Random Allocation Function
+## Calling Random Allocation API
 
 import json
 
