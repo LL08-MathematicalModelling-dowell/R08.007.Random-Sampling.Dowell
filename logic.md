@@ -4,10 +4,9 @@ start
 
 	call dowellrandomgraph()
 	
-	#Step 1 Input Variables
-	
 	define selected_type
-		if selected_type= "fieldrp"		         Note- "fieldrp"=Field Random Point
+		if selected_type= "fieldrp"		         Note- "fieldrp"=Field Random Point	
+		
 			define columns, rows, selection, N
 			
 			length=columns
@@ -50,6 +49,20 @@ start
 			if(selection==9):			Start from the top
 			  list1=[[0,width/2]]
 			
+			
+			
+			CenterOfCircle = list1[0]
+			for i in range 0 to N
+				draw 'circle1' (of Radius = radius) taking center = CenterOfCircle
+				Now, taking a random point on the circumference of the 'circle1' as the center draw another 'circle2' of Radius= 2 * radius
+				Let center of circle2 be [x,y]
+				CenterOfCircle = [x,y]
+				list1.append[CenterOfCircle]
+			
+			Plot the co-ordinates stored in list1 using Matplotlib
+			Join the Points Plotted
+				
+				
 			
 			
 
