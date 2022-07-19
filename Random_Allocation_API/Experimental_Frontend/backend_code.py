@@ -3,6 +3,9 @@ import json
 import requests
 
 app = Flask(__name__) 
+app.secret_key = 'super secret key'
+app.config['SESSION_TYPE'] = 'filesystem'
+
 @app.route('/')    
 def home():  
     return render_template('home.html')
@@ -46,8 +49,6 @@ def random_point_allocation_input():
     return render_template('img.html',image=image,name=name,list1=list1)
 
 if __name__ == "__main__":
-    app.secret_key = 'super secret key'
-    app.config['SESSION_TYPE'] = 'filesystem'
     app.config["TEMPLATES_AUTO_RELOAD"] = True
     app.debug = True
     app.run()
