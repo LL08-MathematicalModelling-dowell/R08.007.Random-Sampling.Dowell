@@ -59,10 +59,9 @@ start
 				CenterOfCircle = [x,y]
 				list1.append[CenterOfCircle]
 						
-			Plot the co-ordinates stored in list1 using Matplotlib
+			Plot the co-ordinates stored in list1 using Matplotlib and store it in a variable 'plot'
 			Join the Points Plotted
-			image=plot
-			return (list1, image)		
+			return (list1, plot)		
 				
 		if selected_type= "excelrp"                      Note- "excelrp"=Excel Random Point
 		
