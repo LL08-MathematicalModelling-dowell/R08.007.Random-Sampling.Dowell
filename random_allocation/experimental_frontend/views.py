@@ -11,10 +11,12 @@ def function_type(request):
     if request.method == 'POST':
         selected_type=request.POST['type']
         request.session['selected_type'] = selected_type
+        template_url=''
         if selected_type=='fieldrp':
-            return render(request,'field.html')
+            template_url='field.html'
         if selected_type=='excelrp':
-            return render(request,'excel.html') 
+            template_url='excel.html'
+        return render(request,template_url)   
 
 @csrf_exempt
 def random_point_allocation_input(request):
