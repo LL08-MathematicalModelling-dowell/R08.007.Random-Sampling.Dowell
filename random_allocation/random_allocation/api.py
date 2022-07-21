@@ -9,7 +9,6 @@ def post_operation(request):
   import numpy as np
   import math
   from math import sqrt, sin, cos, pi, floor, ceil
-  import pandas as pd
   import matplotlib.pyplot as plt
   import random
   import base64
