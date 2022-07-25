@@ -39,7 +39,7 @@ def random_point_allocation_input(request):
         del request.session['selected_type']
         
         #Calling Random Allocation API
-        url = 'http://127.0.0.1:8000/api/random_allocation'
+        url = 'http://100022.pythonanywhere.com/api/random_allocation'
         headers = {'content-type': 'application/json'}
         response = requests.post(url, json =input_data, headers=headers)
         data=json.loads(response.text)
