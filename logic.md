@@ -53,11 +53,12 @@ start
 			
 			CenterOfCircle = list1[0]
 			for i in range 0 to N
-				draw 'circle1' (of Radius = radius) taking center = CenterOfCircle
-				Now, taking a random point on the circumference of the 'circle1' as the center draw another 'circle2' of Radius= 2 * radius
-				Let center of circle2 be [x,y]
+				Draw a circle 'circle2' of Radius= radius and 'CenterOfCircle' as the center
+				Take a random point on the circumference of the circle 'circle1' as the center and draw another circle 'circle2' of 
+				Radius = 2 * radius
+				Let a random point on the circumference of 'circle2' be [x,y]
 				CenterOfCircle = [x,y]
-				list1.append[CenterOfCircle]
+				list1.append(CenterOfCircle)
 						
 			Plot the co-ordinates stored in list1 using Matplotlib and store it in a variable 'plot'
 			Join the Points Plotted
@@ -95,7 +96,7 @@ start
 				Take a random point [x1,y1] from L 
 				center = [x1,y1] 
 				for k in range N-1
-					Draw a circle 'circle2' of Radius= radius and 'center' as the center
+					Draw a circle 'circle2' of Radius = radius and 'center' as the center
 					Take a random point on the circumference of the circle 'circle2' as the center and draw another circle 'circle3' of 
 					Radius = 2 * radius
 					Let a random point on the circumference of 'circle3' be [x,y]
@@ -105,7 +106,7 @@ start
 				Take a random point [x1,y1] from L 
 				center = [x1,y1] 
 				for k in range N+1
-					Draw a circle 'circle2' of Radius= radius and 'center' as the center
+					Draw a circle 'circle2' of Radius = radius and 'center' as the center
 					Take a random point on the circumference of the circle 'circle2' as the center and draw another circle 'circle3' of 
 					Radius = 2 * radius
 					Let a random point on the circumference of 'circle3' be [x,y]
