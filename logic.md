@@ -95,16 +95,20 @@ start
 				Take a random point [x1,y1] from L 
 				center = [x1,y1] 
 				for k in range N-1
-					Draw a circle 'circle2' of Radius=  2 * radius and 'center' as the center
-					Let center of 'circle2' be [x,y]
+					Draw a circle 'circle2' of Radius= radius and 'center' as the center
+					Take a random point on the circumference of the circle 'circle2' as the center and draw another circle 'circle3' of 
+					Radius = 2 * radius
+					Let center of 'circle3' be [x,y]
 					center = [x,y]
 					list1.append(center)
 			if selection other than 0:
 				Take a random point [x1,y1] from L 
 				center = [x1,y1] 
 				for k in range N+1
-					Draw a circle 'circle2' of Radius=  2 * radius and 'center' as the center
-					Let center of 'circle2' be [x,y]
+					Draw a circle 'circle2' of Radius= radius and 'center' as the center
+					Take a random point on the circumference of the circle 'circle2' as the center and draw another circle 'circle3' of 
+					Radius = 2 * radius
+					Let center of 'circle3' be [x,y]
 					center = [x,y]
 					list1.append(center)
 
