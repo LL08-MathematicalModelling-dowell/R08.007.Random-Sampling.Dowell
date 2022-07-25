@@ -74,6 +74,8 @@ start
 			area_of_circle=area/N                     #calculate area of circle
 			radius=sqrt(area_of_circle/pi)            #calculate the radius of circle
 			diameter=2*radius                         #calculate the diameter of circle
+			
+			Create a Canvas of Dimensions length x width
 								  
 			if selection is 0:			  
 				sequential/ordered selection      
