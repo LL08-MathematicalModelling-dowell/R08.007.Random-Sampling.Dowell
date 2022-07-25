@@ -53,7 +53,7 @@ start
 			
 			CenterOfCircle = list1[0]
 			for i in range 0 to N
-				Draw a circle 'circle2' of Radius = radius and 'CenterOfCircle' as the center
+				Draw a circle 'circle1' of Radius = radius and 'CenterOfCircle' as the center
 				Take a random point on the circumference of the circle 'circle1' as the center and draw another circle 'circle2' of 
 				Radius = 2 * radius
 				Let a random point on the circumference of 'circle2' be [x,y]
