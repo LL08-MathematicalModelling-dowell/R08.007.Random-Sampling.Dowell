@@ -73,17 +73,17 @@ start
 			area_of_circle=area/N                     #calculate area of circle
 			radius=sqrt(area_of_circle/pi)            #calculate the radius of circle
 			diameter=2*radius                         #calculate the diameter of circle
-			
-			if selection is 0:
-				sequential/ordered selection
-				i=1
-			if selection other than 0:
-				random selection
-				i=selection
-			
-			Define an array X
+								  
+			if selection is 0:			  
+				sequential/ordered selection      
+				i=1				  
+			if selection other than 0:		  
+				random selection		  
+				i=selection			  
+								  
+			Define an array X			  #Array for storing co-ordinates
 			for j in range 1 to width+1:	
-				X.append([i,j]) 												#Array for storing co-ordinates						
+				X.append([i,j]) 									
 			Select a random co-ordinate from the coordinates stored in X	call it 'first_co-ordinate'
 			CenterOfCircle = 'first_co-ordinate'
 			Taking center of circle as 'CenterOfCircle' and radius as radius draw a circle 'circle1'
@@ -95,7 +95,7 @@ start
 				Take a random point [x1,y1] from L 
 				center = [x1,y1] 
 				for k in range N-1
-					Take a random point from L as the center draw a circle 'circle2' of Radius=  2* radius
+					Draw a circle 'circle2' of Radius=  2 * radius and 'center' as the center
 					Let center of 'circle2' be [x,y]
 					center = [x,y]
 					list1.append(center)
@@ -103,7 +103,7 @@ start
 				Take a random point [x1,y1] from L 
 				center = [x1,y1] 
 				for k in range N+1
-					Take a random point from L as the center draw a circle 'circle2' of Radius=  2* radius
+					Draw a circle 'circle2' of Radius=  2 * radius and 'center' as the center
 					Let center of 'circle2' be [x,y]
 					center = [x,y]
 					list1.append(center)
