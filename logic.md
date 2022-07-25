@@ -98,7 +98,7 @@ start
 					Draw a circle 'circle2' of Radius= radius and 'center' as the center
 					Take a random point on the circumference of the circle 'circle2' as the center and draw another circle 'circle3' of 
 					Radius = 2 * radius
-					Let center of 'circle3' be [x,y]
+					Let a random point on the circumference of 'circle3' be [x,y]
 					center = [x,y]
 					list1.append(center)
 			if selection other than 0:
@@ -108,7 +108,7 @@ start
 					Draw a circle 'circle2' of Radius= radius and 'center' as the center
 					Take a random point on the circumference of the circle 'circle2' as the center and draw another circle 'circle3' of 
 					Radius = 2 * radius
-					Let center of 'circle3' be [x,y]
+					Let a random point on the circumference of 'circle3' be [x,y]
 					center = [x,y]
 					list1.append(center)
 
