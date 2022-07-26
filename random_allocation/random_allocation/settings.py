@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'experimental_frontend.apps.ExperimentalFrontendConfig',
+    'random_allocation_api.apps.RandomAllocationApiConfig',
 
 ]
 

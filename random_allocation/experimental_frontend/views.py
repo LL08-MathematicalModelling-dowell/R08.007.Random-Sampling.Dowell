@@ -16,7 +16,7 @@ def function_type(request):
             template_url='field.html'
         if selected_type=='excelrp':
             template_url='excel.html'
-        return render(request,template_url)   
+        return render(request,template_url)     
 
 @csrf_exempt
 def random_point_allocation_input(request):
@@ -36,9 +36,10 @@ def random_point_allocation_input(request):
             input_data['columns']=int(request.POST['columns'])
             input_data['rows']=int(request.POST['rows'])
             input_data['selection']=int(request.POST['selection'])
-
+        del request.session['selected_type']
+        
         #Calling Random Allocation API
-        url = 'http://100022.pythonanywhere.com/api/random_allocation'
+        url = 'http://100022.pythonanywhere.com/api/random_allocation/'
         headers = {'content-type': 'application/json'}
         response = requests.post(url, json =input_data, headers=headers)
         data=json.loads(response.text)

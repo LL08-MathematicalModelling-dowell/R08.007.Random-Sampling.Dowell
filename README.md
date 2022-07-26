@@ -7,7 +7,7 @@ import json
 
 import requests
 
-url = 'http://100022.pythonanywhere.com/api/random_allocation'
+url = 'http://100022.pythonanywhere.com/api/random_allocation/'
 
 data={
 
