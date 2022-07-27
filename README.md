@@ -7,11 +7,11 @@ import json
 
 import requests
 
-url = 'http://100022.pythonanywhere.com/api/random_allocation/'
+url = 'http://100022.pythonanywhere.com/api/'
 
 data={
 
-  'selected_type' : 'fieldrp' ,      #Choose 'fieldrp' for Field Random Point Allocation or 'excelrp' for Excel Random Point Allocation
+  'selected_type' : 'fieldrp' ,      # Choose 'fieldrp' for Field Random Point Allocation or 'excelrp' for Excel Random Point Allocation
   
   'columns' : 20 ,
   
@@ -19,7 +19,7 @@ data={
   
   'selection' : 5 ,
  
-  'N' : 5 ,
+  'N' : 5 ,                          # For 'fieldrp' set a value of 'N' to be any integer, For 'excelrp' set 'N':5 (N is not used in 'excelrp')
  
  }
 
