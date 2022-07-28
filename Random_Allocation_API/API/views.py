@@ -344,7 +344,6 @@ def random_point_allocation_input(request):
             input_data['rows']=int(request.POST['rows'])
             input_data['selection']=int(request.POST['selection'])
 
-        del request.session['selected_type']
         data=random_allocation_function(input_data)
         data['name']=name
         return render(request, "img.html", data)
