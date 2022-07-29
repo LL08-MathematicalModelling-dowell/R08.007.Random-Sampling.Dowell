@@ -158,6 +158,13 @@ def random_allocation_function(data):
       plt.figure(figsize=(6,6))
       data = np.array([list1])
       x, y = data.T
+      
+      ax = plt.gca()
+      ax.spines['top'].set_visible(False)
+      ax.spines['left'].set_position('zero')
+      ax.spines['right'].set_visible(False)
+      ax.spines['bottom'].set_position('zero')      
+      
       plt.scatter(x,y) #Co-ordinates
       plt.plot(x,y) #Joins Co-ordinates using a line
 
@@ -262,6 +269,13 @@ def random_allocation_function(data):
     plt.figure(figsize=(6,6))
     data = np.array([list1])
     x, y = data.T
+    
+    ax = plt.gca()
+    ax.spines['top'].set_visible(False)
+    ax.spines['left'].set_position('zero')
+    ax.spines['right'].set_visible(False)
+    ax.spines['bottom'].set_position('zero')    
+    
     plt.scatter(x,y) #Co-ordinates
     plt.plot(x,y) #Joins Co-ordinates using a line
 
