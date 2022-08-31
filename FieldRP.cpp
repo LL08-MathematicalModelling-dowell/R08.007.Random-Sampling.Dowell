@@ -6,7 +6,7 @@ using namespace std;
 #include <time.h>
 float PI = 3.14;
 
-int FieldRP(int columns, int rows, int selection, int N)
+auto FieldRP(int columns, int rows, int selection, int N)
 {
     int area = columns * rows;
     int area_of_circle = area / N;
@@ -84,17 +84,14 @@ int FieldRP(int columns, int rows, int selection, int N)
         selectB = X1[random].second;
         coordinates.push_back({selectA, selectB});
     }
-    for (int k = 0; k <= coordinates.size(); k++)
-    {
-        cout << "(" << coordinates[k].first << "," << coordinates[k].second << ")\n";
-    }
-
-    return 0;
+    return coordinates;
 }
 
 int main()
 {
-    FieldRP(10000000, 10000000, 2, 100000);
-    
+    auto coordinates = FieldRP(10000000, 10000000, 2, 10);
+    for (int k = 0; k <= coordinates.size(); k++){
+        cout << "(" << coordinates[k].first << "," << coordinates[k].second << ")\n";
+    }
     return 0;
 }
