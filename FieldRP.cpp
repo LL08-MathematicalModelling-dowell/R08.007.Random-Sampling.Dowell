@@ -90,8 +90,8 @@ auto FieldRP(int columns, int rows, int selection, int N)
 
 int main()
 {
-    auto coordinates = FieldRP(10000000, 10000000, 2, 200000);
-    for (int k = 0; k <= coordinates.size(); k++){
+    auto coordinates = FieldRP(10000000, 10000000, 2, 20);
+    for (int k = 0; k < coordinates.size(); k++){
         cout << "(" << coordinates[k].first << "," << coordinates[k].second << ")\n";
     }
     return 0;
