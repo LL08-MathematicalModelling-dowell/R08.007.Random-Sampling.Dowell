@@ -84,12 +84,13 @@ auto FieldRP(int columns, int rows, int selection, int N)
         selectB = X1[random].second;
         coordinates.push_back({selectA, selectB});
     }
+
     return coordinates;
 }
 
 int main()
 {
-    auto coordinates = FieldRP(10000000, 10000000, 2, 10);
+    auto coordinates = FieldRP(10000000, 10000000, 2, 200000);
     for (int k = 0; k <= coordinates.size(); k++){
         cout << "(" << coordinates[k].first << "," << coordinates[k].second << ")\n";
     }
