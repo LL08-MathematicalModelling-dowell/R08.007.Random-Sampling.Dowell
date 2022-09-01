@@ -116,7 +116,6 @@ auto ExcelRP(int columns, int rows, int selection)
                 column_nos.push_back(selectA);
                 coordinates.push_back({selectA, selectB});
             }
-            cout << "Length of column_nos is " << column_nos.size() << "\n";
             std::sort(column_nos.begin(), column_nos.end());
         }
     }
@@ -125,7 +124,7 @@ auto ExcelRP(int columns, int rows, int selection)
 
 int main()
 {
-    auto coordinates = ExcelRP(100000, 100000, 4);
+    auto coordinates = ExcelRP(100000, 100000, 50000);
     for (int k = 0; k < coordinates.size(); k++)
     {
         cout << "(" << coordinates[k].first << "," << coordinates[k].second << ")\n";
