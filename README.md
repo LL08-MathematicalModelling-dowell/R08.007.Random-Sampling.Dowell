@@ -17,9 +17,9 @@ data={
   
   'selection' : 5 ,                  # Value of selection can be from 1 to 9 in 'fieldrp' and 0 to 'side' in 'excelrp'. 
   
-  'choice' : 0 ,                    # Choose '0' to use Number of Points or '1' to use Radius of Circle. (only used in 'fieldrp')
+  'choice' : 0 ,                     # Choose '0' to use Number of Points or '1' to use Radius of Circle. (only used in 'fieldrp')
    
-  'value': 10,                      # Enter Radius of Circle or Number of Points according to 'choice'. (only used in 'fieldrp') 
+  'value': 10,                       # Enter Radius of Circle or Number of Points according to 'choice'. (only used in 'fieldrp') 
   
  }
 
