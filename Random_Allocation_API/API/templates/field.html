@@ -17,12 +17,18 @@
     <tr><td>
         <h1>Field Random Points</h1>
     </td></tr>
-        <tr><td>Enter Number of Columns</td>  
-        <td><input class="form-control" type ="text" name ="columns"></td></tr>  
-        <tr><td>Enter Number of Rows</td>  
-        <td><input class="form-control" type ="text" name ="rows"></td></tr>
-        <tr><td>Enter Number of Points to be Selected</td>  
-        <td><input class="form-control" type ="text" name ="N"></td></tr>            
+        <tr><td>Enter Side</td>  
+        <td><input class="form-control" type ="text" name ="side"></td></tr>  
+
+        <tr><td>What do you want to Enter?</td> 
+        <td>
+                <select class="form-select" name="choice">
+                <option value="0"> Number of Points </option>
+                <option value="1"> Radius </option>
+                </select>
+        </td></tr>           
+        <tr><td>Enter Radius or N</td>  
+        <td><input class="form-control" type ="text" name ="value"></td></tr>  
         <tr><td>Select Starting Point</td> 
         <td>
             <select class="form-select" name="selection">
