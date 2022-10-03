@@ -7,10 +7,10 @@ using namespace std;
 #include <algorithm>
 float PI = 3.14;
 
-auto ExcelRP(int columns, int rows, int selection)
+auto ExcelRP(int side, int selection)
 {
-    int N = columns;
-    int area = columns * rows;
+    int N = side;
+    int area = side * side;
     int area_of_circle = area / N;
     float radius = sqrt(area_of_circle / PI);
     float diameter = 2 * radius;
@@ -30,7 +30,7 @@ auto ExcelRP(int columns, int rows, int selection)
         i = selection;
     }
 
-    for (int j = 1; j < rows + 1; j++)
+    for (int j = 1; j < side + 1; j++)
     {
         XOld.push_back({i, j});
     }
@@ -68,7 +68,7 @@ auto ExcelRP(int columns, int rows, int selection)
             {
                 int x = X[k].first + selectA;
                 int y = X[k].second + selectB;
-                if (x == j + 2 && x >= 1 && y >= 1 && x <= columns && y <= rows)
+                if (x == j + 2 && x >= 1 && y >= 1 && x <= side && y <= side)
                 {
                     X1.push_back({x, y});
                 }
@@ -98,7 +98,7 @@ auto ExcelRP(int columns, int rows, int selection)
             {
                 int x = X[k].first + selectA;
                 int y = X[k].second + selectB;
-                if (x >= 1 && y >= 1 && x <= columns && y <= rows)
+                if (x >= 1 && y >= 1 && x <= side && y <= side)
                 {
                     X1.push_back({x, y});
                 }
@@ -124,7 +124,9 @@ auto ExcelRP(int columns, int rows, int selection)
 
 int main()
 {
-    auto coordinates = ExcelRP(100000, 100000, 50000);
+    int a, b;
+    cin >> a >> b;
+    auto coordinates = ExcelRP(a, b);
     for (int k = 0; k < coordinates.size(); k++)
     {
         cout << "(" << coordinates[k].first << "," << coordinates[k].second << ")\n";
