@@ -11,16 +11,16 @@ url = 'http://100022.pythonanywhere.com/api/'
 
 data={
 
-  'selected_type' : 'fieldrp' ,      # Choose 'fieldrp' for Field Random Point Allocation or 'excelrp' for Excel Random Point Allocation
+  'selected_type' : 'fieldrp' ,      # Choose 'fieldrp' to use Field Random Point Allocation or 'excelrp' to use Excel Random Point Allocation.
   
-  'columns' : 20 ,
+  'side' : 20 ,                      # Side of the Canvas.
   
-  'rows' : 20 , 
+  'selection' : 5 ,                  # Value of selection can be from 1 to 9 in 'fieldrp' and 0 to 'side' in 'excelrp'. 
   
-  'selection' : 5 ,
- 
-  'N' : 5 ,                          # For 'fieldrp' set a value of 'N' to be any integer, For 'excelrp' set 'N':5 (N is not used in 'excelrp')
- 
+  'choice' : 0 ,                     # Choose '0' to use Number of Points or '1' to use Radius of Circle. (only used in 'fieldrp')
+   
+  'value': 10,                       # Enter Radius of Circle or Number of Points according to 'choice'. (only used in 'fieldrp') 
+  
  }
 
 headers = {'content-type': 'application/json'}
