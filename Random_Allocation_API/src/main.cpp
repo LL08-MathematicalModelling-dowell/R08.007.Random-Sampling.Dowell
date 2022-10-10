@@ -1,6 +1,7 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 #include <vector>
+#include <set>
 #include <cmath>
 #include <cstdlib>
 #include <time.h>
@@ -12,12 +13,21 @@ float PI = 3.14;
 
 namespace py = pybind11;
 
-struct Point
+struct PointSet
 {
-    long x, y;
+    int a, b;
+
+    bool operator<(const PointSet &pt) const
+    {
+        return (a < pt.a) || ((!(pt.a < a)) && (b < pt.b));
+    }
+};
+struct PointVector
+{
+    int x, y;
 };
 
-std::vector<Point> FieldRP(int side, int selection, int choice, float value)
+std::vector<PointVector> FieldRP(int side, int selection, int choice, float value)
 {
 
     int area = side * side;
@@ -40,7 +50,8 @@ std::vector<Point> FieldRP(int side, int selection, int choice, float value)
     }
     float diameter = 2 * radius;
 
-    std::vector<Point> coordinates;
+    std::vector<PointVector> coordinates;
+    std::set<PointSet> uniqueCoordinates;
 
     if (selection == 1)
     {
@@ -78,8 +89,8 @@ std::vector<Point> FieldRP(int side, int selection, int choice, float value)
     {
         coordinates.push_back({0, side / 2});
     }
-
-    std::vector<Point> L;
+    uniqueCoordinates.insert({coordinates[0].x, coordinates[0].y});
+    std::vector<PointVector> L;
     float i = 0.0;
     while (i <= 2 * PI)
     {
@@ -95,7 +106,7 @@ std::vector<Point> FieldRP(int side, int selection, int choice, float value)
     srand(time(0));
     while (coordinates.size() < N)
     {
-        std::vector<Point> X1;
+        std::vector<PointVector> X1;
         for (int k = 0; k < L.size(); k++)
         {
             int x = L[k].x + selectA;
@@ -109,13 +120,20 @@ std::vector<Point> FieldRP(int side, int selection, int choice, float value)
         int random = (rand() % X1.size());
         selectA = X1[random].x;
         selectB = X1[random].y;
-        coordinates.push_back({selectA, selectB});
+        if (uniqueCoordinates.insert({selectA, selectB}).second == true)
+        {
+            uniqueCoordinates.insert({selectA, selectB});
+            coordinates.push_back({selectA, selectB});
+        }
+        else
+        {
+        }
     }
 
     return coordinates;
 }
 
-std::vector<Point> ExcelRP(int side, int selection)
+std::vector<PointVector> ExcelRP(int side, int selection)
 {
 
     int N = side;
@@ -124,10 +142,10 @@ std::vector<Point> ExcelRP(int side, int selection)
     float radius = sqrt(area_of_circle / PI);
     float diameter = 2 * radius;
 
-    std::vector<Point> coordinates;
-    std::vector<Point> XOld;
-    std::vector<Point> L;
-    std::vector<Point> X;
+    std::vector<PointVector> coordinates;
+    std::vector<PointVector> XOld;
+    std::vector<PointVector> L;
+    std::vector<PointVector> X;
 
     int i;
     if (selection == 0)
@@ -172,7 +190,7 @@ std::vector<Point> ExcelRP(int side, int selection)
     {
         for (int j = 0; j < N - 1; j++)
         {
-            std::vector<Point> X1;
+            std::vector<PointVector> X1;
             for (int k = 0; k < X.size(); k++)
             {
                 int x = X[k].x + selectA;
@@ -202,7 +220,7 @@ std::vector<Point> ExcelRP(int side, int selection)
 
         while (column_nos != column)
         {
-            std::vector<Point> X1;
+            std::vector<PointVector> X1;
             for (int k = 0; k < X.size(); k++)
             {
                 int x = X[k].x + selectA;
@@ -236,10 +254,10 @@ std::vector<Point> ExcelRP(int side, int selection)
 PYBIND11_MODULE(Random_Allocation, m)
 {
     // Declare the point class
-    py::class_<Point>(m, "Point")
-        .def(py::init<long, long>()) // Point takes 2 longs to construct
-        .def_readonly("x", &Point::x)
-        .def_readonly("y", &Point::y);
+    py::class_<PointVector>(m, "Point")
+        .def(py::init<int, int>()) // Point takes 2 longs to construct
+        .def_readonly("x", &PointVector::x)
+        .def_readonly("y", &PointVector::y);
 
     // Declare the FieldRP function
     m.def(
@@ -251,5 +269,4 @@ PYBIND11_MODULE(Random_Allocation, m)
         "ExcelRP", // Name in python
         &ExcelRP,  // Address of function
         "Returns the Coordinates for Excel Random Point Function");
-
 }
