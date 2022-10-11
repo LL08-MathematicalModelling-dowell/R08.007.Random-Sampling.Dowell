@@ -84,6 +84,18 @@ def random_allocation_function(data):
   x, y = plotCoordinates.T
 
   ax = plt.gca()
+  
+  x_bound = data['side']/2
+  y_bound = data['side']/2
+  ax.set_xlim(-(x_bound+1),(x_bound+1))
+  ax.set_ylim(-(y_bound+1),(y_bound+1))
+
+  major_ticks = np.arange(-(x_bound),(x_bound+1), data['side']/10)
+  major_ticks = np.arange(-(y_bound),(y_bound+1), data['side']/10)
+    
+  ax.set_xticks(major_ticks)
+  ax.set_yticks(major_ticks) 
+
   ax.spines['top'].set_visible(False)
   ax.spines['left'].set_position('zero')
   ax.spines['right'].set_visible(False)
