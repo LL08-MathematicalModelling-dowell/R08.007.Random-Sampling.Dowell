@@ -95,6 +95,8 @@ def random_allocation_function(data):
     
   ax.set_xticks(major_ticks)
   ax.set_yticks(major_ticks) 
+  
+  ax.ticklabel_format(useOffset=False, style='plain')
 
   ax.spines['top'].set_visible(False)
   ax.spines['left'].set_position('zero')
