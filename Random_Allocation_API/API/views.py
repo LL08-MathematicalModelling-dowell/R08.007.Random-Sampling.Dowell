@@ -9,6 +9,8 @@ plt.switch_backend('agg')
 import numpy as np
 import base64
 import io
+import sys
+sys.path.insert(0, '/home/testingapps/R08.007.Random-Sampling.Dowell/Random_Allocation_API/build')
 import Random_Allocation
 
 def get_event_id():
@@ -63,7 +65,7 @@ def dowell_connection(field):
   headers = {
     'Content-Type': 'application/json'
     }
-  response = requests.post( url, headers=headers, json=payload)
+  requests.post( url, headers=headers, json=payload)
 
 
 def random_allocation_function(data):
@@ -72,17 +74,24 @@ def random_allocation_function(data):
     points = Random_Allocation.FieldRP(data['side'], data['selection'], data['choice'], data['value'])
   if (selected_type=='excelrp'):
     points = Random_Allocation.ExcelRP(data['side'], data['selection'])
-  
+
   coordinates = []
-  for p in points:
-      coordinates.append([p.x, p.y])
-      
+  for point in points:
+      coordinates.append([point.x, point.y])
+
   plt.figure(figsize=(6,6))
   plotCoordinates = np.array([coordinates])
   x, y = plotCoordinates.T
-  plt.scatter(x,y) 
-  plt.plot(x,y) 
-   
+
+  ax = plt.gca()
+  ax.spines['top'].set_visible(False)
+  ax.spines['left'].set_position('zero')
+  ax.spines['right'].set_visible(False)
+  ax.spines['bottom'].set_position('zero')
+  plt.scatter(x,y)
+  plt.plot(x,y)
+  plt.quiver(x[:-1], y[:-1], x[1:]-x[:-1], y[1:]-y[:-1], scale_units='xy', angles='xy', scale=1)
+
   pic_IObytes = io.BytesIO()
   plt.savefig(pic_IObytes,  format='png')
   pic_IObytes.seek(0)
