@@ -1,12 +1,13 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+
 #include <vector>
-#include <set>
 #include <cmath>
 #include <cstdlib>
 #include <time.h>
 #include <algorithm>
 #include <iostream>
+#include <random>
 using namespace std;
 
 float PI = 3.14;
@@ -22,6 +23,34 @@ struct PointSet
         return (a < pt.a) || ((!(pt.a < a)) && (b < pt.b));
     }
 };
+
+// Function to check if a point falls inside or on the circumference of a circle
+bool is_point_inside_circle(double px, double py, double cx, double cy, double radius)
+{
+    double distance_squared = (px - cx) * (px - cx) + (py - cy) * (py - cy); // calculate the distance between the point and the center of the circle
+    double radius_squared = radius * radius;                                 // calculate the square of the radius of the circle
+    if (distance_squared <= radius_squared)
+    { // if the distance is less than or equal to the square of the radius, the point is inside or on the circumference of the circle
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool is_point_inside_canvas(double px, double py, int side)
+{
+    if (px >= -side / 2 && py >= -side / 2 && px <= side / 2 && py <= side / 2)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 struct PointVector
 {
     int x, y;
@@ -51,7 +80,6 @@ std::vector<PointVector> FieldRP(int side, int selection, int choice, float valu
     float diameter = 2 * radius;
 
     std::vector<PointVector> coordinates;
-    std::set<PointSet> uniqueCoordinates;
 
     if (selection == 1)
     {
@@ -89,16 +117,6 @@ std::vector<PointVector> FieldRP(int side, int selection, int choice, float valu
     {
         coordinates.push_back({0, side / 2});
     }
-    uniqueCoordinates.insert({coordinates[0].x, coordinates[0].y});
-    std::vector<PointVector> L;
-    float i = 0.0;
-    while (i <= 2 * PI)
-    {
-        int a = round(diameter * cos(i));
-        int b = round(diameter * sin(i));
-        L.push_back({a, b});
-        i += PI / 6;
-    }
 
     int selectA = coordinates[0].x;
     int selectB = coordinates[0].y;
@@ -106,24 +124,23 @@ std::vector<PointVector> FieldRP(int side, int selection, int choice, float valu
     srand(time(0));
     while (coordinates.size() < N)
     {
-        std::vector<PointVector> X1;
-        for (int k = 0; k < L.size(); k++)
-        {
-            int x = L[k].x + selectA;
-            int y = L[k].y + selectB;
-            if (x >= -side / 2 && y >= -side / 2 && x <= side / 2 && y <= side / 2)
-            {
-                X1.push_back({x, y});
-            }
-        }
+        // Use a random device to seed the random number generator
+        std::random_device rd;
+        std::mt19937 gen(rd());
 
-        int random = (rand() % X1.size());
-        selectA = X1[random].x;
-        selectB = X1[random].y;
-        if (uniqueCoordinates.insert({selectA, selectB}).second == true)
+        // Use a uniform distribution to select a random angle
+        std::uniform_real_distribution<double> dis(0.0, 2.0 * M_PI);
+        double theta = dis(gen);
+
+        // Calculate the corresponding point on the circumference of the circle
+        int x = selectA + diameter * cos(theta);
+        int y = selectB + diameter * sin(theta);
+        if ((is_point_inside_circle(x, y, selectA, selectB, radius) == false) && is_point_inside_canvas(x, y, side) == true)
         {
-            uniqueCoordinates.insert({selectA, selectB});
-            coordinates.push_back({selectA, selectB});
+
+            coordinates.push_back({x, y});
+            selectA = x;
+            selectB = y;
         }
         else
         {
