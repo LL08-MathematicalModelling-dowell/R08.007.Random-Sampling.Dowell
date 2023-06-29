@@ -33,6 +33,7 @@ var numOfPoints = 10000;
 
 const Chart = (props) => {
   console.log(props.side)
+const Chart = () => {
   const [data, setData] = useState([]);
   const [limit, setLimit] = useState(10);
   const [responseData,setResponseData]=useState();
@@ -251,6 +252,4 @@ const handleToggle=()=>
   );
 };
 
-export default Chart;
-
-
+export default Chart
