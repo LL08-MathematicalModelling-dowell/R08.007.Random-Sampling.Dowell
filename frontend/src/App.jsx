@@ -19,7 +19,7 @@ function App() {
 					<Route path="/excel_random_points" element={<ExcelRandomPoints />} />
 					<Route path="/field_random_points" element={<FieldRandomPoints />} />
 				</Routes>
-				<Canvas />
+				{/* <Canvas /> */}
 			</div>
 		</>
 	)
