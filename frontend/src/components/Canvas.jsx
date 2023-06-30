@@ -5,6 +5,7 @@ import axios from "axios"
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 // import LoaderComp from "./Loader";
 import ClipLoader from "react-spinners/ClipLoader";
+import { saveAs } from 'file-saver';
 import { Button } from "../pages/FieldRandomPoints";
 function generatePoints(listOfPoints, numOfPoints) {
   var generatedPoints = [];
@@ -33,7 +34,6 @@ var numOfPoints = 10000;
 
 const Chart = (props) => {
   console.log(props.side)
-const Chart = () => {
   const [data, setData] = useState([]);
   const [limit, setLimit] = useState(10);
   const [responseData,setResponseData]=useState();
@@ -42,6 +42,18 @@ const Chart = () => {
   const [zoomLevel, setZoomLevel] = useState(1);
   const [toggle,setToggle] = useState(false)
   const viewBoxOut = `0 0 ${400 * zoomLevel} ${400 * zoomLevel}`;
+const handleDownload = () => {
+  const svgElement = svgRef.current;
+
+  // Get the SVG content as a string
+  const svgString = new XMLSerializer().serializeToString(svgElement);
+
+  // Create a blob from the SVG content
+  const blob = new Blob([svgString], { type: 'image/svg+xml' });
+
+  // Save the SVG file
+  saveAs(blob, 'image.svg');
+};
 
   const handleMouseOver = useCallback((event, d) => {
     tooltip
@@ -246,10 +258,15 @@ const handleToggle=()=>
         )}
       </TransformWrapper>
       {
-        data.length !== 0 &&
-        <Button onClick={e=>handleToggle()}>  {toggle ? "Give Simple Graph" : "Draw Circles around points"}</Button>}
+        data.length !== 0 && <div style={{display:"grid",marginLeft:"20rem",gap:"1rem",width:"17rem"}}>
+        <Button onClick={e=>handleToggle()}>  {toggle ? "Give Simple Graph" : "Draw Circles around points"}</Button>
+        <Button onClick={handleDownload}>Download Graph</Button>
+         </div>
+         }
     </div>
   );
 };
 
-export default Chart
+export default Chart;
+
+
