@@ -35,7 +35,7 @@ var numOfPoints = 10000;
 const Chart = (props) => {
   console.log(props.side)
   const [data, setData] = useState([]);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(props.type === "field" ? 100 : 50);
   const [responseData,setResponseData]=useState();
   const [xScale, setXScale] = useState(null);
   const [yScale, setYScale] = useState(null);
@@ -73,11 +73,13 @@ const handleDownload = () => {
   useEffect(()=>{
     const num=30;
 // const sidee = ;
+// alert(props.type)
     const useAPI=async()=>
     {
     
 // console.log(sidee)
-    fetch("http://testingapps.pythonanywhere.com/fieldrp/", {
+if(props.type === 'field'){
+    fetch("http://100022.pythonanywhere.com//fieldrp/", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
@@ -89,17 +91,46 @@ const handleDownload = () => {
     value: parseInt(props.value),
   }),
 })
+
   .then((response) => response.json())
   .then((data) => {
     // Handle the response data here
-    console.log(data);
+    console.log(data.listOfPoints);
+    setData(data.listOfPoints);
+    // setLimit(Math.max(data.listOfPoints));
+    // alert(Math.max(data.listOfPoints))
+  })
+  .catch((error) => {
+    // Handle any errors that occurred during the request
+    console.error(error);
+  });
+ 
+}
+else if(props.type === 'excel')
+{
+    fetch("http://100022.pythonanywhere.com/excelrp/", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    side: parseInt(props.side),
+    selection: parseInt(props.selection),
+  }),
+})
+
+  .then((response) => response.json())
+  .then((data) => {
+    // Handle the response data here
+    console.log(data.listOfPoints);
     setData(data.listOfPoints);
   })
   .catch((error) => {
     // Handle any errors that occurred during the request
     console.error(error);
   });
-    
+ 
+}   
     }
     useAPI();
   },[responseData])
