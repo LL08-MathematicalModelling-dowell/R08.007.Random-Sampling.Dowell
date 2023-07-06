@@ -7,7 +7,23 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import ClipLoader from "react-spinners/ClipLoader";
 import { saveAs } from 'file-saver';
 import { Button } from "../pages/FieldRandomPoints";
-function generatePoints(listOfPoints, numOfPoints) {
+ 
+
+
+const  findHighestNumber = (array) => {
+    let maxNumber = Number.NEGATIVE_INFINITY;
+
+    for (const subArray of array) {
+      for (const number of subArray) {
+        if (number > maxNumber) {
+          maxNumber = number;
+        }
+      }
+    }
+        return maxNumber;
+  };
+
+    function generatePoints(listOfPoints, numOfPoints) {
   var generatedPoints = [];
 
   // Add the input points to the generated points list
@@ -35,7 +51,7 @@ var numOfPoints = 10000;
 const Chart = (props) => {
   console.log(props.side)
   const [data, setData] = useState([]);
-  const [limit, setLimit] = useState(props.type === "field" ? 100 : 50);
+  const [limit, setLimit] = useState(0);
   const [responseData,setResponseData]=useState();
   const [xScale, setXScale] = useState(null);
   const [yScale, setYScale] = useState(null);
@@ -95,8 +111,9 @@ if(props.type === 'field'){
   .then((response) => response.json())
   .then((data) => {
     // Handle the response data here
-    console.log(data.listOfPoints);
+    // console.log(data.listOfPoints);
     setData(data.listOfPoints);
+    setLimit(findHighestNumber(data.listOfPoints))
     // setLimit(Math.max(data.listOfPoints));
     // alert(Math.max(data.listOfPoints))
   })
@@ -122,8 +139,9 @@ else if(props.type === 'excel')
   .then((response) => response.json())
   .then((data) => {
     // Handle the response data here
-    console.log(data.listOfPoints);
+    // console.log(data.listOfPoints);
     setData(data.listOfPoints);
+    setLimit(findHighestNumber(data.listOfPoints))
   })
   .catch((error) => {
     // Handle any errors that occurred during the request
@@ -232,7 +250,7 @@ else if(props.type === 'excel')
     .on("mouseout", handleMouseOut);
     
   }, 
-  [data, limit, handleMouseOver, handleMouseOut,toggle]
+  [data, handleMouseOver, handleMouseOut,toggle]
   );
 
   
@@ -267,7 +285,7 @@ const handleToggle=()=>
             </div>
 }
               { 
-              data.length === 0 && <>
+              data.length === 0 || limit === 0 && <>
      <div style={{display:"grid",marginLeft:"8rem"}}>
       <h3>Wait While We Plot the Graph For You </h3>
       <br/>
