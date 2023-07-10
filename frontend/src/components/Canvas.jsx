@@ -95,7 +95,7 @@ const handleDownload = () => {
     
 // console.log(sidee)
 if(props.type === 'field'){
-    fetch("http://100022.pythonanywhere.com//fieldrp/", {
+    fetch("http://testingapps.pythonanywhere.com///fieldrp/", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
@@ -208,7 +208,7 @@ else if(props.type === 'excel')
         .datum(data)
         .attr("fill", "none")
         .attr("stroke", "steelblue")
-        .attr("stroke-width", 2)
+        .attr("stroke-width", 0)
         .attr("d", line)
         .attr("marker-end", "url(#arrowhead)");
 
@@ -285,7 +285,7 @@ const handleToggle=()=>
             </div>
 }
               { 
-              data.length === 0 || limit === 0 && <>
+              data.length === 0  && <>
      <div style={{display:"grid",marginLeft:"8rem"}}>
       <h3>Wait While We Plot the Graph For You </h3>
       <br/>
