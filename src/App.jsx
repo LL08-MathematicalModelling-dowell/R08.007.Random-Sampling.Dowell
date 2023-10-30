@@ -1,11 +1,10 @@
-import React from 'react'
+import React from "react";
+import ContactUs from "./components/ContactUs";
 
 const App = () => {
   return (
-    <div>
-      Project Starter
-    </div>
-  )
-}
+    <ContactUs/>
+  );
+};
 
-export default App
+export default App;
