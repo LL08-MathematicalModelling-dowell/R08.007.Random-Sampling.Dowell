@@ -3,7 +3,7 @@ import React from "react";
 const DynamicForm = () => {
   return (
     <section class="w-full h-full bg-slate-200">
-      <div class="py-8 lg:py-16  mx-auto overflow-hidden bg-white max-w-screen-md">
+      <div class="py-8 lg:py-16  mx-auto ove bg-white max-w-screen-md">
         <form action="#" class="space-y-8">
           <div>
             <label
