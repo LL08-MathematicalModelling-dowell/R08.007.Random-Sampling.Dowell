@@ -54,18 +54,18 @@ const DynamicForm = ({ formData, webUrl }) => {
   // }
 
   return (
-    <section class="w-full  h-full bg-slate-100">
-      <div class=" mx-auto py-16 bg-white max-w-[800px]">
-        <form onSubmit={handleSubmit} class="space-y-8">
-          {Object?.keys(formData)?.map(
+    <section className="w-full  h-full bg-slate-100">
+      <div className=" mx-auto py-16 bg-white max-w-[800px]">
+        <form onSubmit={handleSubmit} className="space-y-8">
+          {formData && Object?.keys(formData)?.map(
             (fieldName, index) =>
               fieldName !== "submit" && (
                 <div key={index}>
                   {formData[fieldName] !== "hidden" &&
                     fieldName !== "form_index" && (
                       <label
-                        for="{fieldName}"
-                        class="block ml-3  mb-3 text-lg font-medium text-gray-900 dark:text-gray-300"
+                        htmlFor="{fieldName}"
+                        className="block ml-3  mb-3 text-lg font-medium text-gray-900 dark:text-gray-300"
                       >
                         {fieldName}
                       </label>
@@ -81,7 +81,7 @@ const DynamicForm = ({ formData, webUrl }) => {
                     <textarea
                       id="message"
                       rows="3"
-                      class="block p-3   w-full text-lg text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500"
+                      className="block p-3   w-full text-lg text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500"
                       placeholder="Leave Your Message Here."
                     ></textarea>
                   ) : (
@@ -91,7 +91,7 @@ const DynamicForm = ({ formData, webUrl }) => {
                       name={fieldName}
                       value={formValues[fieldName] || ""}
                       onChange={handleInputChange}
-                      class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
+                      className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
                       placeholder={`Enter ${fieldName}`}
                       required
                     />
@@ -102,7 +102,7 @@ const DynamicForm = ({ formData, webUrl }) => {
 
           <button
             type="submit"
-            class="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+            className="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
             disabled={loading}
           >
             {loading ? "Submitting Form..." : "Submit"}
