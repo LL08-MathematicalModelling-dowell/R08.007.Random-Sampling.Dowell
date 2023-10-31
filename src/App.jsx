@@ -1,5 +1,4 @@
-import React from "react";
-import PageRouter from "./components/PageRouter";
+import PageRouter from "./PageRouter";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -25,23 +24,3 @@ const App = () => {
 export default App;
 
 
-
-// import React from "react";
-// import ContactUs from "./components/ExtractorForm";
-// import DynamicForm from "./components/DynamicForm";
-// import Upload from "./components/Upload";
-// import Home from "./components/Home";
-
-// const App = () => {
-//   return (
-//     <>
-//     {/* <ContactUs/>
-//     <Upload/> */}
-//     {/* <DynamicForm/> */}
-//     <Home/>
-    
-//     </>
-//   );
-// };
-
-// export default App;

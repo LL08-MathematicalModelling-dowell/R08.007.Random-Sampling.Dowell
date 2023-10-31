@@ -1,16 +1,11 @@
 import axios from "axios";
-import { useSearchParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import DynamicForm from "./DynamicForm";
 import { toast } from "react-toastify";
 import { FaFileExcel } from "react-icons/fa";
 import FileUpload from "./Upload";
 
 const Home = () => {
-
-  const [userInfo, setUserInfo] = useState();
-  const [params, setSearchParams] = useSearchParams();
-  const session_id = params.get("session_id");
   const [formData, setFormData] = useState();
   const [loadingCreate, setLoadingCreate] = useState(false);
   const [loadingDownload, setLoadingDownload] = useState(false);
@@ -107,14 +102,13 @@ const Home = () => {
               </button>
             </div>
 
-            <Button
+            <button
               onClick={handleDownLoadFile}
               disabled={!link || loadingDownload}
-              variant="success"
             >
               <FaFileExcel />
               {!link ? "" : loadingDownload ? "Downloading" : ""}
-            </Button>
+            </button>
           </div>
         </div>
       </div>
@@ -150,5 +144,7 @@ const Home = () => {
     </div>
   );
 };
+
+export default Home;
 
 

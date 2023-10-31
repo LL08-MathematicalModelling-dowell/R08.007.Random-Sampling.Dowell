@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const Upload = () => {
+const FileUpload = ({url}) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploading, setUploading] = useState(false);
 
@@ -48,32 +49,30 @@ const Upload = () => {
   };
 
   return (
-    <div className="w-full h-full bg-slate-100">
       <form onSubmit={handleSubmit}>
         <div className="container mx-auto bg-white max-w-[800px]">
           <label
-            class="block mb-4 font-bold  ml-3 text-xl text-gray-900 dark:text-white"
-            for="file_input"
+            className="block mb-4 font-bold text-xl text-gray-900 dark:text-white"
+            htmlFor="file_input"
           >
             Upload file
           </label>
           <input
-            class="block w-full text-sm text-black font-bold border border-gray-300 rounded-lg cursor-pointer bg-gray-100 "
+            className="border block w-full p-2.5 border-black rounded-md focus:outline-none focus:green-500 focus:border-green-500"
             id="file_input"
             type="file"
             onChange={handleFileChange}
-            // disabled={!url}
+            disabled={!url}
           />
           <button
             disabled={!selectedFile || uploading}
-            className="bg-blue-700 px-4 py-2 my-4 text-white font-bold rounded-lg"
+            className="px-4 py-2 my-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
           {uploading ? "Uploading and Submitting..." : "Upload"}
           </button>
         </div>
       </form>
-    </div>
   );
 };
 
-export default Upload;
+export default FileUpload;

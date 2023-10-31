@@ -1,16 +1,11 @@
-import React from "react";
 import axios from "axios";
-import { useSearchParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import DynamicForm from "./DynamicForm";
 import { toast } from "react-toastify";
 import { FaFileExcel } from "react-icons/fa";
 import FileUpload from "./Upload";
 
 const Home = () => {
-  const [userInfo, setUserInfo] = useState();
-  const [params, setSearchParams] = useSearchParams();
-  const session_id = params.get("session_id");
   const [formData, setFormData] = useState();
   const [loadingCreate, setLoadingCreate] = useState(false);
   const [loadingDownload, setLoadingDownload] = useState(false);
@@ -48,7 +43,7 @@ const Home = () => {
       );
 
       // Extract the filename from the Content-Disposition header
-      const contentDisposition = response.headers["content-disposition"];
+      // const contentDisposition = response.headers["content-disposition"];
 
       const blob = new Blob([response.data], {
         type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -76,8 +71,8 @@ const Home = () => {
   };
 
   return (
-    <div className="w-full h-full bg-slate-100">
-      <div className="container mx-auto  overflow-hidden  bg-white max-w-[800px] ">
+    <div className="w-full h-full bg-slate-100 bg-white bg-slate-100">
+      <div className="container mx-auto overflow-hidden max-w-[800px]">
         {/* Logo */}
         <div className="flex justify-center my-4">
           <img
@@ -94,16 +89,18 @@ const Home = () => {
         </div>
 
         {/*  About Email Extractor */}
-        <div className="mx-auto my-6  max-w-[700px]">
-          Introducing the ultimate form extraction and submission tool. Extract
-          forms from any webpage instantly. Fill them out directly or download
-          as Excel for offline editing. Effortlessly submit forms at their
-          original location. Simplify your form interaction today !
+        <div className="mt-5 flex items-center">
+          <p>
+            Introducing the ultimate form extraction and submission tool. Extract
+            forms from any webpage instantly. Fill them out directly or download
+            as Excel for offline editing. Effortlessly submit forms at their
+            original location. Simplify your form interaction today !
+          </p>
         </div>
 
         {/* Link Form and 2 Buttons */}
-        <div className="flex justify-around my-10">
-          <div className="flex-grow ml-6">
+        <div className="flex justify-around items-center mt-4">
+          <div className="flex-grow">
             <input
               id="my-input"
               onChange={(e) => setLink(e.target.value)}
@@ -128,7 +125,7 @@ const Home = () => {
             <button
               onClick={handleDownLoadFile}
               disabled={!link || loadingDownload}
-              className="bg-green-700 px-3 py-2 text-white rounded-lg"
+              className="bg-green-700 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
             >
               <FaFileExcel />
               {!link ? "" : loadingDownload ? "Downloading" : ""}
@@ -139,21 +136,24 @@ const Home = () => {
 
       {/* Additional section */}
       {loadingCreate ? (
-        <div className="">
-          Loading ... 
+        <div className="text-center mt-5">
+          <div className="inline-block h-8 w-8 animate-spin rounded-full text-[#005734] border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+            <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
+          </div>
         </div>
-      ) : (
-        <div className="container">
+      
+      ) : formData && (
+        <div className="container mx-auto overflow-hidden max-w-[800px]">
           {Array.isArray(formData) ? (
             formData.map((data, index) => (
-              <div key={index} className="flex flex-row justify-center">
+              <div key={index}>
                 <div >
                   <DynamicForm formData={data} webUrl={link} />
                 </div>
               </div>
             ))
           ) : (
-            <div className="flex flex-row justify-center">
+            <div>
               <div >
                 <DynamicForm formData={formData} webUrl={link} />
               </div>

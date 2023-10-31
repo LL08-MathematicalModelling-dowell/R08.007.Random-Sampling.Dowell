@@ -1,5 +1,5 @@
 import { Route, Routes as Switch } from "react-router-dom";
-import Home from "./Home";
+import Home from "./components/Home";
 
 const PageRouter = () => {
   return (
