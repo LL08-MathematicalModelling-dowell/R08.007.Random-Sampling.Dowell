@@ -4,6 +4,8 @@ import DynamicForm from "./DynamicForm";
 import { toast } from "react-toastify";
 import { FaFileExcel } from "react-icons/fa";
 import FileUpload from "./Upload";
+import Accordion from "./accordion";
+import Spinner from "./spinner";
 
 const Home = () => {
   const [formData, setFormData] = useState();
@@ -71,8 +73,8 @@ const Home = () => {
   };
 
   return (
-    <div className="w-full h-full bg-slate-100 bg-white bg-slate-100">
-      <div className="container mx-auto overflow-hidden max-w-[800px]">
+    <div className="ml-2 mr-2 h-full bg-slate-100 bg-white bg-slate-100">
+      <div className="mx-auto overflow-hidden max-w-[800px]">
         {/* Logo */}
         <div className="flex justify-center my-4">
           <img
@@ -85,11 +87,11 @@ const Home = () => {
         {/* Email Extractor Title */}
         <div className="text-center font-bold text-[#005734] text-5xl">
           {" "}
-          Dowell Email Extractor{" "}
+          Dowell Contact Us Form Extractor{" "}
         </div>
 
         {/*  About Email Extractor */}
-        <div className="mt-5 flex items-center">
+        <div className="mt-5 mb-3">
           <p>
             Introducing the ultimate form extraction and submission tool. Extract
             forms from any webpage instantly. Fill them out directly or download
@@ -99,8 +101,8 @@ const Home = () => {
         </div>
 
         {/* Link Form and 2 Buttons */}
-        <div className="flex justify-around items-center mt-4">
-          <div className="flex-grow">
+        <div className="flex flex-col items-center mt-4">
+          <div className="flex-grow w-full mb-4">
             <input
               id="my-input"
               onChange={(e) => setLink(e.target.value)}
@@ -109,29 +111,28 @@ const Home = () => {
             />
           </div>
 
-          <div className="mx-2">
+          <div className="flex gap-2">
             <button
               onClick={handleScrapeForm}
               disabled={!link || loadingCreate}
-              className="bg-blue-700 px-3 py-2 text-white rounded-lg mr-2"
+              className="bg-green-700 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
             >
-              {!link
-                ? "Enter Web Url"
-                : loadingCreate
-                ? "Scraping Forms..."
-                : "Scrap Form"}
+              {!link ? "Enter Web Url" : loadingCreate ? "Scraping Forms..." : "Scrap Form"}
             </button>
 
             <button
               onClick={handleDownLoadFile}
               disabled={!link || loadingDownload}
-              className="bg-green-700 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+              className="bg-green-700 hover:bg-green-600 text-white font-bold py-2 px-4 rounded flex items-center"
             >
-              <FaFileExcel />
-              {!link ? "" : loadingDownload ? "Downloading" : ""}
+              <FaFileExcel /> 
+              <p>{!link ? "Download Excel" : loadingDownload ? 
+              <Spinner /> : "Download Excel"}</p>
+              
             </button>
           </div>
         </div>
+
       </div>
 
       {/* Additional section */}
@@ -143,24 +144,25 @@ const Home = () => {
         </div>
       
       ) : formData && (
-        <div className="container mx-auto overflow-hidden max-w-[800px]">
-          {Array.isArray(formData) ? (
-            formData.map((data, index) => (
-              <div key={index}>
-                <div >
+          
+          <div className="container mx-auto overflow-hidden max-w-[800px]">
+            <Accordion formData={formData}>
+            {Array.isArray(formData) ? (
+              formData.map((data, index) => (
+                <div key={index}>
                   <DynamicForm formData={data} webUrl={link} />
                 </div>
+              ))
+            ) : (
+              <div>
+                  <DynamicForm formData={formData} webUrl={link} />
               </div>
-            ))
-          ) : (
-            <div>
-              <div >
-                <DynamicForm formData={formData} webUrl={link} />
-              </div>
-            </div>
-          )}
-        </div>
-      )}
+            )}
+            </Accordion>
+          </div>
+
+        )}
+       
 
       <FileUpload url={link} />
     </div>
