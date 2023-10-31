@@ -2,14 +2,14 @@ import React from "react";
 
 const DynamicForm = () => {
   return (
-    <section class="w-full h-full bg-slate-100">
-      <div class=" mx-auto  bg-white max-w-[800px]">
+    <section class="w-full  h-full bg-slate-100">
+      <div class=" mx-auto py-16 bg-white max-w-[800px]">
         <form action="#" class="space-y-8">
 
           <div>
             <label
               for="text"
-              class="block ml-3 mb-3 text-lg font-medium text-gray-900 dark:text-gray-300"
+              class="block ml-3  mb-3 text-lg font-medium text-gray-900 dark:text-gray-300"
             >
               Title
             </label>

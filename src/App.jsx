@@ -1,12 +1,15 @@
 import React from "react";
-import ContactUs from "./components/ContactUs";
+import ContactUs from "./components/ExtractorForm";
 import DynamicForm from "./components/DynamicForm";
+import Upload from "./components/Upload";
 
 const App = () => {
   return (
     <>
     <ContactUs/>
+    <Upload/>
     <DynamicForm/>
+    
     </>
   );
 };
