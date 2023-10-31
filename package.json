@@ -1,7 +1,7 @@
 {
   "homepage": "https://ll05-ai-dowell.github.io/100107-DowellEmailExtractor/",
   "name": "form-extractor",
-  "private": true,
+  "private": false,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
