@@ -1,16 +1,28 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter as Router } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import './index.css'
+import Home from "./components/Home";
 
+
+const router = createBrowserRouter([
+  {
+    path: "/100107-DowellEmailExtractor",
+    element: <App />,
+    children: [
+      {
+        path: "/100107-DowellEmailExtractor/",
+        element: <Home />
+      }
+    ]
+  }
+])
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
 
 root.render(
   <StrictMode>
-    <Router>
-      <App />
-    </Router>
+    <RouterProvider router={router}/>
   </StrictMode>
 );
