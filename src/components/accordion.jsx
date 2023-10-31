@@ -8,8 +8,6 @@ const Accordion = ({children, formData}) => {
         setIsAccordionOpen(!isAccordionOpen);
     };
 
-    formData = [formData]
-
     return (
         <div className="rounded-t-lg border border-neutral-200 bg-white mt-3">
           <h2 className="mb-0" id="headingOne">
@@ -20,7 +18,7 @@ const Accordion = ({children, formData}) => {
               aria-expanded={isAccordionOpen}
               aria-controls="collapseOne"
             >
-            {formData.length} Form(s) Found
+            {formData?.length ? formData.length : "1"} Form(s) Found
               <span className="ml-auto h-5 w-5 shrink-0 rotate-[-180deg] fill-[#336dec] transition-transform duration-200 ease-in-out group-[[data-te-collapse-collapsed]]:rotate-0 group-[[data-te-collapse-collapsed]]:fill-[#212529] motion-reduce:transition-none dark:fill-blue-300 dark:group-[[data-te-collapse-collapsed]]:fill-white">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

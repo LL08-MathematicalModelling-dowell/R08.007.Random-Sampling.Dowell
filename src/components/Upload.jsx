@@ -2,6 +2,8 @@
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Spinner from "./spinner";
+
 
 const FileUpload = ({url}) => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -52,11 +54,12 @@ const FileUpload = ({url}) => {
       <form onSubmit={handleSubmit}>
         <div className="container mx-auto bg-white max-w-[800px]">
           <label
-            className="block mb-4 font-bold text-xl text-gray-900 dark:text-white"
+            className="block mb-2 mt-4 font-bold"
             htmlFor="file_input"
           >
             Upload file
           </label>
+
           <input
             className="border block w-full p-2.5 border-black rounded-md focus:outline-none focus:green-500 focus:border-green-500"
             id="file_input"
@@ -64,12 +67,19 @@ const FileUpload = ({url}) => {
             onChange={handleFileChange}
             disabled={!url}
           />
-          <button
-            disabled={!selectedFile || uploading}
-            className="px-4 py-2 my-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-          >
-          {uploading ? "Uploading and Submitting..." : "Upload"}
-          </button>
+
+          <div className="flex items-center">
+            <button
+              disabled={!selectedFile || uploading}
+              className="mt-3 bg-green-700 hover:bg-green-600 text-white font-bold py-2 px-4 rounded flex items-center"
+            >
+            {/* {uploading ? "Uploading and Submitting..." : "Upload"} */}
+                <p>{uploading ? 
+                <Spinner /> : "Upload and Submit"}</p>
+                
+            </button>
+          </div>
+          
         </div>
       </form>
   );

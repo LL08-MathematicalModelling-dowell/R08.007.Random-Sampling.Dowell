@@ -25,6 +25,7 @@ const Home = () => {
 
       setFormData(response?.data);
       setLoadingCreate(false);
+      console.log("formData", formData)
     } catch (error) {
       setLoadingCreate(false);
       console.log(error);

@@ -98,7 +98,7 @@ const DynamicForm = ({ formData, webUrl }) => {
 
               <button
                 type="submit"
-                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                className="bg-green-700 hover:bg-green-600 text-white font-bold py-2 px-4 rounded flex items-center"
                 disabled={loading}
               >
                 {loading ? "Submitting Form..." : "Submit"}
