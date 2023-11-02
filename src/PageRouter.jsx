@@ -3,6 +3,7 @@ import Home from "./components/Home";
 
 const PageRouter = () => {
   return (
+    
     <Switch>
       <Route path="/" element={<Home />} />
     </Switch>
