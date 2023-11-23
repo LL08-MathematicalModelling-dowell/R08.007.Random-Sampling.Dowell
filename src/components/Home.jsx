@@ -3,6 +3,7 @@ import { useState } from "react";
 import DynamicForm from "./DynamicForm";
 import { toast } from "react-toastify";
 import { FaFileExcel } from "react-icons/fa";
+import { v4 as uuidv4 } from 'uuid';
 import FileUpload from "./Upload";
 import Accordion from "./accordion";
 import Spinner from "./spinner";
@@ -11,8 +12,9 @@ const Home = () => {
   const [formData, setFormData] = useState();
   const [loadingCreate, setLoadingCreate] = useState(false);
   const [loadingDownload, setLoadingDownload] = useState(false);
-  const [link, setLink] = useState("");
-
+  const [link, setLink] = useState({});
+  const [linksUrl,setLinksUrl]=useState([]);
+  const [showDelete,setShowDelete]=useState(null);
   const handleScrapeForm = async () => {
     try {
       setLoadingCreate(true);
@@ -36,6 +38,24 @@ const Home = () => {
       }
     }
   };
+  const handleInputLinks = (event) => {
+   
+    if(event.target.value[event.target.value.length-1]===" " && link.item.trim()!==''){
+     
+      setLinksUrl([...linksUrl,link]);
+      setLink({});
+      event.target.value="";
+     
+     
+   } else{
+    setLink({id:`${uuidv4()}`,item:event.target.value});
+  
+   }   
+  };
+
+const handleDeleteLink=(itemId)=>{
+  setLinksUrl(linksUrl.filter(({id})=>id!==itemId));
+}
 
   const handleDownLoadFile = async () => {
     try {
@@ -103,12 +123,20 @@ const Home = () => {
 
         {/* Link Form and 2 Buttons */}
         <div className="flex flex-col items-center mt-4">
-          <div className="flex-grow w-full mb-4">
+          <div className="flex-grow w-full mb-4 border p-2.5 rounded-md  focus:green-500 border-green-500">
+           
+            {linksUrl.map(({item,id})=>(
+              <button key={id} onClick={()=>handleDeleteLink(id)}
+             
+             onMouseEnter={()=>setShowDelete(id)} 
+             onMouseLeave={()=>setShowDelete(null)} 
+             className="border border-0.15 rounded-md p-1 hover:bg-green-500 text-white bg-green-400 mr-1">{item}{showDelete===id ? (<small className="text-red-500 text-md m-2 mr-0.5 rounded-full bg-green-200 p-0.5 px-2 font-semibold" >X</small>) :'' }</button>
+            ))}
             <input
               id="my-input"
-              onChange={(e) => setLink(e.target.value)}
+              onChange={handleInputLinks}
               placeholder="Enter the Website Url or Link Here"
-              className="border block w-full p-2.5 border-black rounded-md focus:outline-none focus:green-500 focus:border-green-500"
+              className="border-none focus:border-none focus:outline-none"
             />
           </div>
 
