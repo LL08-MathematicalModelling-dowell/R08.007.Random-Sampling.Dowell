@@ -14,7 +14,7 @@ const Home = () => {
   const [loadingDownload, setLoadingDownload] = useState(false);
   const [link, setLink] = useState({});
   const [linksUrl,setLinksUrl]=useState([]);
-  const [showDelete,setShowDelete]=useState(null);
+  //const [showDelete,setShowDelete]=useState(null);
   const handleScrapeForm = async () => {
     try {
       setLoadingCreate(true);
@@ -123,14 +123,14 @@ const handleDeleteLink=(itemId)=>{
 
         {/* Link Form and 2 Buttons */}
         <div className="flex flex-col items-center mt-4">
-          <div className="flex-grow w-full mb-4 border p-2.5 rounded-md  focus:green-500 border-green-500">
+          <div tabIndex={0} className="flex-grow focus:outline-none w-full mb-4 border p-2.5 rounded-md  focus:border-green-400 focus-within:border-green-300 border-black">
            
             {linksUrl.map(({item,id})=>(
               <button key={id} onClick={()=>handleDeleteLink(id)}
              
-             onMouseEnter={()=>setShowDelete(id)} 
-             onMouseLeave={()=>setShowDelete(null)} 
-             className="border border-0.15 rounded-md p-1 hover:bg-green-500 text-white bg-green-400 mr-1">{item}{showDelete===id ? (<small className="text-red-500 text-md m-2 mr-0.5 rounded-full bg-green-200 p-0.5 px-2 font-semibold" >X</small>) :'' }</button>
+            // onMouseEnter={()=>setShowDelete(id)} 
+            // onMouseLeave={()=>setShowDelete(null)} 
+             className="border border-0.15 rounded-md p-1 hover:bg-green-500 text-white bg-green-400 mr-1">{item}{ (<small className="text-red-500 text-md m-2 mr-0.5 rounded-full bg-green-200 p-0.5 px-2 font-semibold" >X</small>)}</button>
             ))}
             <input
               id="my-input"
