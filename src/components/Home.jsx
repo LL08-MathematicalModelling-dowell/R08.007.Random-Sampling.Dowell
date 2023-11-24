@@ -14,14 +14,15 @@ const Home = () => {
   const [loadingDownload, setLoadingDownload] = useState(false);
   const [link, setLink] = useState({});
   const [linksUrl,setLinksUrl]=useState([]);
-  //const [showDelete,setShowDelete]=useState(null);
   const handleScrapeForm = async () => {
+    //delete id from the objects array and take the link 
+    const links=linksUrl.map(({item})=>item)
     try {
       setLoadingCreate(true);
       const response = await axios.post(
         `https://www.uxlive.me/api/contact-us-extractor/`,
         {
-          page_link: link,
+          page_link:links,
         }
       );
 
@@ -52,6 +53,13 @@ const Home = () => {
   
    }   
   };
+  const handleEnterKey=(event)=>{
+          if(event.key==="Enter" && link.item.trim()!==''){
+            setLinksUrl([...linksUrl,link]);
+            setLink({});
+            event.target.value="";      
+          }
+  }
 
 const handleDeleteLink=(itemId)=>{
   setLinksUrl(linksUrl.filter(({id})=>id!==itemId));
@@ -135,6 +143,7 @@ const handleDeleteLink=(itemId)=>{
             <input
               id="my-input"
               onChange={handleInputLinks}
+              onKeyDown={handleEnterKey}
               placeholder="Enter the Website Url or Link Here"
               className="border-none focus:border-none focus:outline-none"
             />
