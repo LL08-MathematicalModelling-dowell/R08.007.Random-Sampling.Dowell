@@ -14,15 +14,16 @@ const Home = () => {
   const [loadingDownload, setLoadingDownload] = useState(false);
   const [link, setLink] = useState({});
   const [linksUrl,setLinksUrl]=useState([]);
+  const links=linksUrl?.map(({item})=>item)
   const handleScrapeForm = async () => {
     //delete id from the objects array and take the link 
-    const links=linksUrl.map(({item})=>item)
+  
     try {
       setLoadingCreate(true);
       const response = await axios.post(
         `https://www.uxlive.me/api/contact-us-extractor/`,
         {
-          page_link:links,
+          page_links:links,
         }
       );
 
@@ -188,12 +189,12 @@ const handleDeleteLink=(itemId)=>{
             {Array.isArray(formData) ? (
               formData.map((data, index) => (
                 <div key={index}>
-                  <DynamicForm formData={data} webUrl={link} />
+                  <DynamicForm formData={data} webUrl={links} />
                 </div>
               ))
             ) : (
               <div>
-                  <DynamicForm formData={formData} webUrl={link} />
+                  <DynamicForm formData={formData} webUrl={links} />
               </div>
             )}
             </Accordion>
