@@ -29,7 +29,7 @@ const DynamicForm = ({ formData, webUrl }) => {
 
     // Prepare the data to send
     const dataToSend = {
-      page_link: webUrl,
+      page_links: webUrl,
       form_data: [formValues],
     };
 
