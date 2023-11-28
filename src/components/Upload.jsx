@@ -61,14 +61,15 @@ const FileUpload = ({url}) => {
           </label>
 
           <input
-            className="border block w-full p-2.5 border-black rounded-md focus:outline-none focus:green-500 focus:border-green-500"
+            // className="border block w-full p-2.5 rounded-md focus:outline-none focus:outline-[#005734]"
+            className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-[#005734] w-full p-2.5"
             id="file_input"
             type="file"
             onChange={handleFileChange}
             disabled={!url}
           />
 
-          <div className="flex items-center">
+          <div className="flex flex-row gap-2 justify-center">
             <button
               disabled={!selectedFile || uploading}
               className="mt-3 bg-green-700 hover:bg-green-600 text-white font-bold py-2 px-4 rounded flex items-center"

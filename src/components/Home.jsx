@@ -70,7 +70,7 @@ const handleDeleteLink=(itemId)=>{
     try {
       setLoadingDownload(true);
       const response = await axios.get(
-        `https://www.uxlive.me/api/download-csv/?web_url=${link}&file_type=xlsx`,
+        `https://www.uxlive.me/api/download-csv/?web_url=${JSON.stringify(links)}&file_type=xlsx`,
         { responseType: "blob" }
       );
 
@@ -103,7 +103,7 @@ const handleDeleteLink=(itemId)=>{
   };
 
   return (
-    <div className="ml-2 mr-2 h-full bg-slate-100 bg-white bg-slate-100">
+    <div className="page-container">
       <div className="mx-auto overflow-hidden max-w-[800px]">
         {/* Logo */}
         <div className="flex justify-center my-4">
@@ -114,58 +114,65 @@ const handleDeleteLink=(itemId)=>{
           />
         </div>
 
+        <hr className="col-md-10 pb-3"/>
+
         {/* Email Extractor Title */}
-        <div className="text-center font-bold text-[#005734] text-5xl">
+        <h1 className="text-center font-bold text-[#005734]">
           {" "}
-          Dowell Contact Us Form Extractor{" "}
-        </div>
+          DoWell contact us Form Extractor{" "}
+        </h1>
 
         {/*  About Email Extractor */}
-        <div className="mt-5 mb-3">
-          <p>
-            Introducing the ultimate form extraction and submission tool. Extract
-            forms from any webpage instantly. Fill them out directly or download
-            as Excel for offline editing. Effortlessly submit forms at their
-            original location. Simplify your form interaction today !
-          </p>
-        </div>
+        <p className="subTitle mt-5 mb-3">
+          Introducing the ultimate form extraction and submission tool. Extract
+          forms from any webpage instantly. Fill them out directly or download
+          as Excel for offline editing. Effortlessly submit forms at their
+          original location. Simplify your form interaction today !
+        </p>
+
 
         {/* Link Form and 2 Buttons */}
-        <div className="flex flex-col items-center mt-4">
-          <div tabIndex={0} className="flex-grow focus:outline-none w-full mb-4 border p-2.5 rounded-md  focus:border-green-400 focus-within:border-green-300 border-black">
-           
+        <div className="flex flex-col mt-4">
+          <div tabIndex={0} 
+            className="flex-grow bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:border-[#005734] w-full p-2.5">           
             {linksUrl.map(({item,id})=>(
-              <button key={id} onClick={()=>handleDeleteLink(id)}
-             
-            // onMouseEnter={()=>setShowDelete(id)} 
-            // onMouseLeave={()=>setShowDelete(null)} 
-             className="border border-0.15 rounded-md p-1 hover:bg-green-500 text-white bg-green-400 mr-1">{item}{ (<small className="text-red-500 text-md m-2 mr-0.5 rounded-full bg-green-200 p-0.5 px-2 font-semibold" >X</small>)}</button>
+              <button key={id}
+                className="border border-0.15 rounded-md p-1 hover:bg-green-700 text-white bg-[#005734] mr-1">{item}
+                <small onClick={()=>handleDeleteLink(id)} 
+                  className="text-red-500 text-md m-2 mr-0.5 rounded-full bg-green-200 p-0.5 px-2 font-semibold">
+                    X
+                </small>
+              </button>
             ))}
             <input
               id="my-input"
               onChange={handleInputLinks}
               onKeyDown={handleEnterKey}
               placeholder="Enter the Website Url or Link Here"
-              className="border-none focus:border-none focus:outline-none"
+              className="border-none bg-gray-50 focus:border-none focus:outline-none w-64"
             />
           </div>
 
-          <div className="flex gap-2">
+          <div className="mb-4 text-xs text-gray-500">
+            Press enter or space after each entry.
+          </div>
+
+          <div className="flex flex-row gap-2 justify-center">
             <button
               onClick={handleScrapeForm}
-              disabled={!link || loadingCreate}
-              className="bg-green-700 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+              disabled={links.length < 1 || loadingCreate}
+              className="bg-green-700 hover:bg-green-600 disabled:bg-green-600 text-white py-2 px-4 rounded"
             >
-              {!link ? "Enter Web Url" : loadingCreate ? "Scraping Forms..." : "Scrap Form"}
+              {links.length < 1 ? "Enter Web Urls" : loadingCreate ? "Scraping Forms..." : "Scrap Forms"}
             </button>
 
             <button
               onClick={handleDownLoadFile}
-              disabled={!link || loadingDownload}
-              className="bg-green-700 hover:bg-green-600 text-white font-bold py-2 px-4 rounded flex items-center"
+              disabled={links.length < 1|| loadingDownload}
+              className="bg-green-700 hover:bg-green-600 text-white py-2 px-4 rounded flex items-center"
             >
               <FaFileExcel /> 
-              <p>{!link ? "Download Excel" : loadingDownload ? 
+              <p>{links.length < 1 ? "Download Excel" : loadingDownload ? 
               <Spinner /> : "Download Excel"}</p>
               
             </button>
@@ -185,18 +192,18 @@ const handleDeleteLink=(itemId)=>{
       ) : formData && (
           
           <div className="container mx-auto overflow-hidden max-w-[800px]">
-            <Accordion formData={formData}>
-            {Array.isArray(formData) ? (
-              formData.map((data, index) => (
-                <div key={index}>
-                  <DynamicForm formData={data} webUrl={links} />
+            <Accordion>
+              {Array.isArray(formData) ? (
+                formData.map((data, index) => (
+                  <div key={index}>
+                    <DynamicForm formData={data} webUrl={links} />
+                  </div>
+                ))
+              ) : (
+                <div>
+                    <DynamicForm formData={formData} webUrl={links} />
                 </div>
-              ))
-            ) : (
-              <div>
-                  <DynamicForm formData={formData} webUrl={links} />
-              </div>
-            )}
+              )}
             </Accordion>
           </div>
 
@@ -204,6 +211,15 @@ const handleDeleteLink=(itemId)=>{
        
 
       <FileUpload url={link} />
+
+      <div className="flex justify-center mt-3">
+        <a href="https://visitorbadge.io/status?path=https%3A%2F%2Fll05-ai-dowell.github.io%2F100107-DowellEmailExtractor%2F">
+          <img 
+            style={{ width: "100px", height: "auto" }}
+            src="https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fll05-ai-dowell.github.io%2F100107-DowellEmailExtractor%2F&labelColor=%23005734&countColor=%23697689&style=plastic&labelStyle=upper" />
+        </a>
+      </div>
+
     </div>
   );
 };
