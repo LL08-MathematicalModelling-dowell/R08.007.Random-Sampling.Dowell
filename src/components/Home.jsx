@@ -34,7 +34,7 @@ const Home = () => {
     } catch (error) {
       setLoadingCreate(false);
       console.log(error);
-      if (error?.response?.data?.page_link) {
+      if (error?.response?.data?.page_links) {
         toast.error("Enter a valid URL");
       } else {
         toast.error(error?.message);
@@ -70,13 +70,24 @@ const handleDeleteLink=(itemId)=>{
   const handleDownLoadFile = async () => {
     try {
       setLoadingDownload(true);
-      const response = await axios.get(
-        `https://www.uxlive.me/api/download-csv/?web_url=${JSON.stringify(links)}&file_type=xlsx`,
-        { responseType: "blob" }
+
+      const response = await axios.post(
+        `https://www.uxlive.me/api/download-csv/?file_type=xlsx`,
+        {
+          "page_links": links,
+        }
       );
 
       // Extract the filename from the Content-Disposition header
-      // const contentDisposition = response.headers["content-disposition"];
+      const contentDisposition = response.headers["content-disposition"];
+      let filename = ''; // Default filename
+      if (contentDisposition) {
+        const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+        let matches = filenameRegex.exec(contentDisposition);
+        if (matches != null && matches[1]) { 
+          filename = matches[1].replace(/['"]/g, '');
+        }
+      }
 
       const blob = new Blob([response.data], {
         type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -85,7 +96,7 @@ const handleDeleteLink=(itemId)=>{
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "filename.xlsx"; // Use the extracted filename
+      a.download = filename; // Use the extracted filename
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
@@ -211,7 +222,7 @@ const handleDeleteLink=(itemId)=>{
         )}
        
 
-      <FileUpload url={links} />
+      <FileUpload urls={links} />
 
       <div className="flex justify-center mt-3">
         <a href="https://visitorbadge.io/status?path=https%3A%2F%2Fll05-ai-dowell.github.io%2F100107-DowellEmailExtractor%2F">

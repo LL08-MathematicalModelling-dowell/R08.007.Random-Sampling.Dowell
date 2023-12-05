@@ -24,9 +24,6 @@ const DynamicForm = ({ formData, webUrl }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("Form val", formValues);
-    console.log("Form data", formData);
-
     // Prepare the data to send
     const dataToSend = {
       page_links: webUrl,

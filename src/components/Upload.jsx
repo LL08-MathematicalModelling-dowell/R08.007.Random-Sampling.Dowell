@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import Spinner from "./spinner";
 
 
-const FileUpload = ({url}) => {
+const FileUpload = ({urls}) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploading, setUploading] = useState(false);
 
@@ -20,7 +20,7 @@ const FileUpload = ({url}) => {
     if (selectedFile) {
       const formData = new FormData();
       formData.append("file", selectedFile);
-      formData.append("page_link", url);
+      formData.append("page_links", JSON.stringify(urls));
 
       try {
         setUploading(true);
@@ -66,7 +66,6 @@ const FileUpload = ({url}) => {
             id="file_input"
             type="file"
             onChange={handleFileChange}
-            disabled={!url}
           />
 
           <div className="flex flex-row gap-2 justify-center">
