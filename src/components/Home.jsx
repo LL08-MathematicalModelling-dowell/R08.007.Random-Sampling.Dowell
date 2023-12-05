@@ -75,7 +75,8 @@ const handleDeleteLink=(itemId)=>{
         `https://www.uxlive.me/api/download-csv/?file_type=xlsx`,
         {
           "page_links": links,
-        }
+        },
+        { responseType: "blob" },
       );
 
       // Extract the filename from the Content-Disposition header
