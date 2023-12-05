@@ -15,6 +15,7 @@ const Home = () => {
   const [link, setLink] = useState({});
   const [linksUrl,setLinksUrl]=useState([]);
   const links=linksUrl?.map(({item})=>item)
+
   const handleScrapeForm = async () => {
     //delete id from the objects array and take the link 
   
@@ -210,7 +211,7 @@ const handleDeleteLink=(itemId)=>{
         )}
        
 
-      <FileUpload url={link} />
+      <FileUpload url={links} />
 
       <div className="flex justify-center mt-3">
         <a href="https://visitorbadge.io/status?path=https%3A%2F%2Fll05-ai-dowell.github.io%2F100107-DowellEmailExtractor%2F">
