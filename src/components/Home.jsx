@@ -182,7 +182,7 @@ const handleDeleteLink=(itemId)=>{
                       onChange={(e) =>setEmail(e.target.value)
                       }
             
-                      placeholder="dowell@dowellresearch.uk"
+                      placeholder="enter your email (optional) "
                     />
                   </div>
      
@@ -226,12 +226,12 @@ const handleDeleteLink=(itemId)=>{
               {Array.isArray(formData) ? (
                 formData.map((data, index) => (
                   <div key={index}>
-                    <DynamicForm formData={data} webUrl={links} email={email || "dowell@dowellresearch.uk"} />
+                    <DynamicForm formData={data} webUrl={links} email={email} />
                   </div>
                 ))
               ) : (
                 <div>
-                    <DynamicForm formData={formData} webUrl={links} email={email || "dowell@dowellresearch.uk"} />
+                    <DynamicForm formData={formData} webUrl={links} email={email } />
                 </div>
               )}
             </Accordion>
