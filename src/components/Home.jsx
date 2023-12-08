@@ -15,7 +15,7 @@ const Home = () => {
   const [link, setLink] = useState({});
   const [linksUrl,setLinksUrl]=useState([]);
   const links=linksUrl?.map(({item})=>item)
-
+  const [email,setEmail]=useState("");
   const handleScrapeForm = async () => {
     //delete id from the objects array and take the link 
   
@@ -173,6 +173,20 @@ const handleDeleteLink=(itemId)=>{
             Press enter or space after each entry.
           </div>
 
+          <div className="mb-3 flex bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:border-[#005734] w-full p-1.5">
+             <input
+                      type="email"
+                      className="flex-1 focus:outline-none"
+                      
+                      value={email}
+                      onChange={(e) =>setEmail(e.target.value)
+                      }
+            
+                      placeholder="dowell@dowellresearch.uk"
+                    />
+                  </div>
+     
+     
           <div className="flex flex-row gap-2 justify-center">
             <button
               onClick={handleScrapeForm}
@@ -212,12 +226,12 @@ const handleDeleteLink=(itemId)=>{
               {Array.isArray(formData) ? (
                 formData.map((data, index) => (
                   <div key={index}>
-                    <DynamicForm formData={data} webUrl={links} />
+                    <DynamicForm formData={data} webUrl={links} email={email || "dowell@dowellresearch.uk"} />
                   </div>
                 ))
               ) : (
                 <div>
-                    <DynamicForm formData={formData} webUrl={links} />
+                    <DynamicForm formData={formData} webUrl={links} email={email || "dowell@dowellresearch.uk"} />
                 </div>
               )}
             </Accordion>
