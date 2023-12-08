@@ -130,16 +130,19 @@ const handleDeleteLink=(itemId)=>{
         <hr className="col-md-10 pb-3"/>
 
         {/* Email Extractor Title */}
-        <h1 className="text-center font-bold text-[#005734]">
+        <h1 className="text-center font-bold text-[#005734]" >
           {" "}
-          DoWell contact us Form Extractor{" "}
+          DoWell &quot;Contact Us Page&quot; Extractor{" "}
         </h1>
 
         {/*  About Email Extractor */}
         <p className="subTitle mt-5 mb-3">
           Introducing the ultimate form extraction and submission tool. Extract
           forms from any webpage instantly. Fill them out directly or download
-          as Excel for offline editing. Effortlessly submit forms at their
+          as Excel for offline editing.
+          <br/>
+          <br/>
+          Effortlessly submit forms at their
           original location. Simplify your form interaction today !
         </p>
 
