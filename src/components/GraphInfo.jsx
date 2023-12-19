@@ -94,7 +94,7 @@ const GraphInfo = () => {
                 <><Spinner/> <span className='text-green-400'>generating...</span></>  : ""}</p>
     </div>
     <div className='max-w-sm mx-right mt-8 flex-1 p-6 bg-white rounded-md'>
-     {show && <RandomGraph data={data}/>}
+     {!show && <RandomGraph data={data}/>}
      {error && <p className='text-green-300'>Couldn &apos;t generate the graph </p>}
     </div>
     </div>

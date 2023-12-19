@@ -3,6 +3,7 @@ import { Chart} from 'react-google-charts';
 
 /*
 ## tested data for the graph##
+*/
 const data= [
     [
       0,
@@ -46,10 +47,10 @@ const data= [
     ]
   ]
 
-*/
+
 
 // eslint-disable-next-line react/prop-types
-const RandomGraph=({data })=> {
+const RandomGraph=()=> {
   return (
     <Chart
       chartType="LineChart"
