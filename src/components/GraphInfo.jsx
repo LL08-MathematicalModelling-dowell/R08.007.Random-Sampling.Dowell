@@ -47,12 +47,12 @@ const GraphInfo = () => {
   };
 
   return (
-    <div className='flex justify-center flex-col items-center w-400 m-auto pl-9'>
+    <div className='flex justify-center flex-col items-center m-auto pl-9'>
 
-      <div className="mt-8 p-6 bg-white rounded-md h-fit">
+      <div className="mt-8 p-6 flex flex-col items-center bg-white rounded-md h-fit">
         {/* <h2 className="text-xl text-[#005734] font-semibold mb-4">Graph Information</h2> */}
         
-        <div className='flex justify-between w-7/12 mb-2 mt-1'>
+        <div className='flex justify-between gap-10 mb-2 mt-1'>
           <label>
             <input type="radio" className={`border-none outline-none `}
             checked={selectedOption === 'fieldrp'}
@@ -70,9 +70,9 @@ const GraphInfo = () => {
 
 
         <form onSubmit={handleButtonClick}>
-          <div className="form-group">
-            <div className='flex my-3 p-2 gap-3 h-fit w-300 sm:flex-col md:flex-row'>
-              <div>
+          <div className="form-group flex md:flex-col md:items-center">
+            <div className='flex my-3 p-2 gap-3 h-fit sm:flex-col md:flex-row md:items-center'>
+              <>
                 <label className="block text-sm font-medium text-gray-600">Side:
                 <input
                   type="number"
@@ -81,7 +81,7 @@ const GraphInfo = () => {
                   onChange={(e) => setSide(e.target.value)}
                 />
                 </label>
-              </div>
+              </>
 
         {/* <div className="mb-4"> */}
           <label className=" text-sm font-medium text-gray-600">Selection:
@@ -109,7 +109,7 @@ const GraphInfo = () => {
         // </div>)
         }
 
-        {selectedOption !== 'exelrp' &&(<div className="mb-4">
+        {selectedOption !== 'exelrp' &&(<>
           <label className="block text-sm font-medium text-gray-600">Value:
           <input
             type="number"
@@ -118,15 +118,17 @@ const GraphInfo = () => {
             onChange={(e) => setValue(e.target.value)}
           />
           </label>
-        </div>)}
+        </>)}
         </div>
+      
         <button
-          className="bg-green-700 hover:bg-green-600 text-white px-4 py-2 rounded-md mt-2 w-auto"
+          className="bg-green-700 hover:bg-green-600 text-white px-4 py-2 rounded-md mt-2"
           // onClick={handleButtonClick}
           type='submit'
         >
           Generate Random Graph
         </button>
+     
       </div>
       </form>
     
@@ -134,7 +136,7 @@ const GraphInfo = () => {
       <p>{generating ? 
                 <><Spinner/> <span className='text-green-400'>generating...</span></>  : ""}</p>
     </div>
-      <div className='max-w-sm mx-right mt-8 flex-1 p-3 bg-white rounded-md'>
+      <div className='mt-8 w-full flex-1 p-3 bg-white rounded-md'>
       {show && <RandomGraph data={data}/>}
       {error ? <p className='text-green-300'>Couldn &apos;t generate the graph </p>:''}
       </div>
