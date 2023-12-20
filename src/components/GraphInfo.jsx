@@ -24,7 +24,7 @@ const GraphInfo = () => {
     try {
       let response=null;
       if(selectedOption==='fieldrp'){
-      response = await axios.post('http://100022.pythonanywhere.com/fieldrp/', 
+      response = await axios.post('https://100022.pythonanywhere.com/fieldrp/', 
         {
           side: Number(side),
           selection:Number(selection),
@@ -32,7 +32,7 @@ const GraphInfo = () => {
           value: Number(value)
         });
       } else{
-        response = await axios.post('http://100022.pythonanywhere.com/excelrp/', 
+        response = await axios.post('https://100022.pythonanywhere.com/excelrp/', 
         {
           side: Number(side),
           selection: Number(selection),
