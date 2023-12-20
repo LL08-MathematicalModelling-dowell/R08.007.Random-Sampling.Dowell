@@ -17,7 +17,8 @@ const GraphInfo = () => {
   const handleRadioChange = (event) => {
     setSelectedOption(event.target.value);
   };
-  const handleButtonClick =  async () => {
+  const handleButtonClick =  async (e) => {
+    e.preventDefault()
     setGenerating(true);
    
     try {
@@ -25,16 +26,16 @@ const GraphInfo = () => {
       if(selectedOption==='fieldrp'){
       response = await axios.post('http://100022.pythonanywhere.com/fieldrp/', 
         {
-          side: side,
-          selection: selection,
-          choice:choice,
-          value: value
+          side: Number(side),
+          selection:Number(selection),
+          choice:Number(choice),
+          value: Number(value)
         });
       } else{
         response = await axios.post('http://100022.pythonanywhere.com/excelrp/', 
         {
-          side: side,
-          selection: selection,
+          side: Number(side),
+          selection: Number(selection),
           
         });
       }
@@ -74,59 +75,69 @@ const GraphInfo = () => {
     </div>
 
 
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-600">Side:</label>
-        <input
-          type="number"
-          className="mt-1 p-1 border rounded-md w-full  border-gray-300 flex mb-3 bg-gray-50 focus:outline-none text-gray-900 focus:border-[#005734]"
-          value={side}
-          onChange={(e) => setSide(Number(e.target.value))}
-        />
+      <form onSubmit={handleButtonClick}>
+        <div className="form-group">
+          <label className="block text-sm font-medium text-gray-600">Side:</label>
+          <input
+            type="number"
+            className="mt-1 p-1 border rounded-md w-full  border-gray-300 flex mb-3 bg-gray-50 focus:outline-none text-gray-900 focus:border-[#005734]"
+            value={side}
+            onChange={(e) => setSide(e.target.value)}
+          />
+
+
+        {/* <div className="mb-4"> */}
+          <label className="block text-sm font-medium text-gray-600">Selection:</label>
+          <input
+            type="number"
+            className="mt-1 p-1 border rounded-md w-full  border-gray-300 flex mb-3 bg-gray-50 focus:outline-none text-gray-900 focus:border-[#005734]"
+            value={selection}
+            onChange={(e) => setSelection(e.target.value)}
+          />
+        {/* </div> */}
+
+        {selectedOption !== 'exelrp' && 
+        // (<div className="mb-4">
+          <>
+            <label className="block text-sm font-medium text-gray-600">Choice:</label>
+            <input
+              type="number"
+              className="mt-1 p-1 border rounded-md w-full  border-gray-300 flex mb-3 bg-gray-50 focus:outline-none text-gray-900 focus:border-[#005734]"
+              value={choice}
+              onChange={(e) => setChoice(e.target.value)}
+            />
+          </>
+        // </div>)
+        }
+
+        {selectedOption !== 'exelrp' &&(<div className="mb-4">
+          <label className="block text-sm font-medium text-gray-600">Value:</label>
+          <input
+            type="number"
+            className="mt-1 p-1 border rounded-md w-full  border-gray-300 flex mb-3 bg-gray-50 focus:outline-none text-gray-900 focus:border-[#005734]"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          />
+        </div>)}
+
+        <button
+          className="bg-green-700 hover:bg-green-600 text-white px-4 py-2 rounded-md mt-2 w-full"
+          // onClick={handleButtonClick}
+          type='submit'
+        >
+          Generate Random Graph
+        </button>
       </div>
+      </form>
+    
 
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-600">Selection:</label>
-        <input
-          type="number"
-          className="mt-1 p-1 border rounded-md w-full  border-gray-300 flex mb-3 bg-gray-50 focus:outline-none text-gray-900 focus:border-[#005734]"
-          value={selection}
-          onChange={(e) => setSelection(Number(e.target.value))}
-        />
-      </div>
-
-      {selectedOption !== 'exelrp' && (<div className="mb-4">
-        <label className="block text-sm font-medium text-gray-600">Choice:</label>
-        <input
-          type="number"
-          className="mt-1 p-1 border rounded-md w-full  border-gray-300 flex mb-3 bg-gray-50 focus:outline-none text-gray-900 focus:border-[#005734]"
-          value={choice}
-          onChange={(e) => setChoice(Number(e.target.value))}
-        />
-      </div>)}
-
-      {selectedOption !== 'exelrp' &&(<div className="mb-4">
-        <label className="block text-sm font-medium text-gray-600">Value:</label>
-        <input
-          type="number"
-          className="mt-1 p-1 border rounded-md w-full  border-gray-300 flex mb-3 bg-gray-50 focus:outline-none text-gray-900 focus:border-[#005734]"
-          value={value}
-          onChange={(e) => setValue(Number(e.target.value))}
-        />
-      </div>)}
-
-      <button
-        className="bg-green-700 hover:bg-green-600 text-white px-4 py-2 rounded-md mt-2 w-full"
-        onClick={handleButtonClick}
-      >
-        Generate Random Graph
-      </button>
       <p>{generating ? 
                 <><Spinner/> <span className='text-green-400'>generating...</span></>  : ""}</p>
     </div>
-    <div className='max-w-sm mx-right mt-8 flex-1 p-3 bg-white rounded-md'>
-     {show && <RandomGraph data={data}/>}
-     {error && <p className='text-green-300'>Couldn &apos;t generate the graph </p>}
-    </div>
+      <div className='max-w-sm mx-right mt-8 flex-1 p-3 bg-white rounded-md'>
+      {show && <RandomGraph data={data}/>}
+      {error && <p className='text-green-300'>Couldn &apos;t generate the graph </p>}
+      </div>
     </div>
 
   );
