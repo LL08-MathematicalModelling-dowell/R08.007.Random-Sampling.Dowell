@@ -52,7 +52,7 @@ const tickedvalue=[minXAxis,maxXAxis];
 console.log("ticked",tickedvalue);
   return (
     <>
-    <h3 className='text-1xl text-[#005734] font-semibold text-center mb-1'>Random Chart</h3>
+    {/* <h3 className='text-1xl text-[#005734] font-semibold text-center mb-1'>Random Chart</h3> */}
     <Chart
       chartType="LineChart"
       data={[["X","Y"],...data]}
