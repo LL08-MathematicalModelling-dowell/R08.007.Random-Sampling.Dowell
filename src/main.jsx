@@ -8,11 +8,11 @@ import './index.css'
 
 const router = createBrowserRouter([
   {
-    path: "/100107-DowellEmailExtractor",
+    path: "/R08.007.Random-Sampling.Dowell",
     element: <App />,
     children: [
       {
-        path: "/100107-DowellEmailExtractor/",
+        path: "/R08.007.Random-Sampling.Dowell/",
   //      element: <Home />
       }
     ]
