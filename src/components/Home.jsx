@@ -1,3 +1,4 @@
+import GraphInfo from "./GraphInfo";
 
 const Home = () => {
   return (
@@ -15,10 +16,11 @@ const Home = () => {
         <hr className="col-md-10 pb-3"/>
 
         {/* Email Extractor Title */}
-        <h2 className="text-center font-bold text-[#005734]" >
+        <h1 className="text-center text-3xl font-bold text-[#005734]" >
           {" "}
           DoWell &quot;Random Graph&quot; Generator{" "}
-        </h2>
+        </h1>
+        <GraphInfo/>
       </div>
       
       </div>

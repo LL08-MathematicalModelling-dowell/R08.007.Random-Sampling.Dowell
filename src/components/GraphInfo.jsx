@@ -58,10 +58,10 @@ const GraphInfo = () => {
   return (
     <div className='flex justify-evenly flex-col w-400 m-auto pl-9'>
     <div className="max-w-sm mx-left mt-8 p-6 bg-white rounded-md shadow-md w-300 h-fit">
-      <h2 className="text-2xl text-[#005734] font-semibold mb-4">Graph Information</h2>
+      <h2 className="text-xl text-[#005734] font-semibold mb-4">Graph Information</h2>
       <div className='flex justify-between w-7/12 mb-2 mt-1'>
       <label>
-        <input type="radio" className={`border-none checked:bg-green-500 text-green-300`}
+        <input type="radio" className={`border-none outline-none `}
          checked={selectedOption === 'fieldrp'}
         name="fileType" value="fieldrp" onChange={handleRadioChange}
 /> Field RP
