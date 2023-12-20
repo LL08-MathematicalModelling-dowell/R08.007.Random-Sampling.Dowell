@@ -45,13 +45,10 @@ function findMinMax(dataArray,axis) {
 const RandomGraph=({data})=> {
  const [minX,maxX]=findMinMax(data,'x');
  const [minY,maxY]=findMinMax(data,'y');
- // eslint-disable-next-line react/prop-types
- const xAxisValues=data.map((datas)=>parseInt(datas[0]));
- // Find two lowest and two highest values
- const sortedXValues = xAxisValues.slice().sort((a, b) => a - b);
- const oneLowest = sortedXValues.slice(0, 1);
- const oneHighest = sortedXValues.slice(-1);
-const tickedvalue=[...oneLowest,...oneHighest];
+
+ const minXAxis=parseInt(minX)-20;
+ const maxXAxis=parseInt(maxX)+10;
+const tickedvalue=[minXAxis,maxXAxis];
 console.log("ticked",tickedvalue);
   return (
     <>

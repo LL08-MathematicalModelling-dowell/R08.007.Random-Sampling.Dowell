@@ -57,7 +57,7 @@ const GraphInfo = () => {
 
   return (
     <div className='flex justify-evenly'>
-    <div className="max-w-sm mx-left mt-8 p-6 bg-white rounded-md shadow-md">
+    <div className="max-w-sm mx-left mt-8 p-6 bg-white rounded-md shadow-md h-fit">
       <h2 className="text-2xl text-[#005734] font-semibold mb-4">Graph Information</h2>
       <div className='flex justify-between w-full mb-2 mt-1'>
       <label>
@@ -136,7 +136,7 @@ const GraphInfo = () => {
     </div>
       <div className='max-w-sm mx-right mt-8 flex-1 p-3 bg-white rounded-md'>
       {show && <RandomGraph data={data}/>}
-      {error && <p className='text-green-300'>Couldn &apos;t generate the graph </p>}
+      {error ? <p className='text-green-300'>Couldn &apos;t generate the graph </p>:''}
       </div>
     </div>
 
