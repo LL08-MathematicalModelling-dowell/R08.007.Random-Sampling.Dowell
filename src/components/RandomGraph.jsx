@@ -71,22 +71,21 @@ console.log("ticked",tickedvalue);
             count: -1, // -1 to display default number of gridlines
           },
           viewWindow: {
-            min: minX>0?-50:minX-50, // Adjust the min value based on your data
-            max: maxX < 0 ?50:maxX+50,  // Adjust the max value based on your data
+            min: minX>0?-50:minX-50, // Adjust the min value based on  data
+            max: maxX < 0 ?50:maxX+50,  // Adjust the max value based on data
           },
           ticks: tickedvalue,
         },
         vAxis: {
-          baseline: 0,
-         
+          baseline: 0,         
           title: 'Y-Axis',
           gridlines: {
             //color:'transparent',
             count: -1, // -1 to display default number of gridlines
           },
           viewWindow: {
-            min: minY>0?-40:minY-40, // Adjust the min value based on your data
-            max: maxY < 0 ?40:maxY+40,  // Adjust the max value based on your data
+            min: minY>0?-40:minY-40, // Adjust the min value based on the data
+            max: maxY < 0 ?40:maxY+40,  // Adjust the max value based on the data
           },
         },
         legend: 'none',

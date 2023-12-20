@@ -2,7 +2,6 @@ import { useState } from 'react';
 import RandomGraph from './RandomGraph';
 import axios from 'axios';
 import Spinner from './spinner';
-Spinner
 const GraphInfo = () => {
   const [side, setSide] = useState(100);
   const [choice, setChoice] = useState(0);
@@ -13,7 +12,6 @@ const GraphInfo = () => {
   const [data, setData] = useState(null);
   const [error,setError]=useState(false);
   const [selectedOption, setSelectedOption] = useState('fieldrp');
-  console.log("option",selectedOption)
   const handleRadioChange = (event) => {
     setSelectedOption(event.target.value);
   };
@@ -39,8 +37,8 @@ const GraphInfo = () => {
           
         });
       }
-        console.log("data",response.data);
-        console.log("data points",response.data.listOfPoints);
+       // console.log("data",response.data);
+        //console.log("data points",response.data.listOfPoints);
       setGenerating(false);
       setData(response.data.listOfPoints);
       setShow(true);
@@ -49,11 +47,6 @@ const GraphInfo = () => {
       setGenerating(false);
     }
   };
-
-
-    //console.log('Current values:', side, selection, choice, value);
-    // You can perform any other actions with the values here
-  
 
   return (
     <div className='flex justify-evenly flex-col w-400 m-auto pl-9'>
@@ -64,13 +57,13 @@ const GraphInfo = () => {
         <input type="radio" className={`border-none outline-none `}
          checked={selectedOption === 'fieldrp'}
         name="fileType" value="fieldrp" onChange={handleRadioChange}
-/> Field RP
+        /> Field RP
       </label>
       <label>
         <input type="radio" className={`border-none checked:bg-green-500 text-green-300`} name="fileType" value="exelrp" 
         checked={selectedOption === 'exelrp'}
         onChange={handleRadioChange}
-/> Excel RP
+        /> Excel RP
       </label>
     </div>
 
@@ -89,7 +82,7 @@ const GraphInfo = () => {
           </label>
          </div>
 
-        {/* <div className="mb-4"> */}
+  
           <label className=" text-sm font-medium text-gray-600">Selection:
           <input
             type="number"
@@ -98,10 +91,9 @@ const GraphInfo = () => {
             onChange={(e) => setSelection(e.target.value)}
           />
           </label>
-        {/* </div> */}
+  
 
         {selectedOption !== 'exelrp' && 
-        // (<div className="mb-4">
           <>
             <label className="block text-sm font-medium text-gray-600">Choice:
             <input
@@ -112,10 +104,10 @@ const GraphInfo = () => {
             />
             </label>
           </>
-        // </div>)
+      
         }
 
-        {selectedOption !== 'exelrp' &&(<div className="mb-4">
+        {selectedOption !== 'exelrp' &&(<>
           <label className="block text-sm font-medium text-gray-600">Value:
           <input
             type="number"
@@ -124,11 +116,10 @@ const GraphInfo = () => {
             onChange={(e) => setValue(e.target.value)}
           />
           </label>
-        </div>)}
+        </>)}
         </div>
         <button
           className="bg-green-700 hover:bg-green-600 text-white px-4 py-2 rounded-md mt-2 w-auto"
-          // onClick={handleButtonClick}
           type='submit'
         >
           Generate Random Graph
@@ -138,7 +129,7 @@ const GraphInfo = () => {
     
 
       <p>{generating ? 
-                <><Spinner/> <span className='text-green-400'>generating...</span></>  : ""}</p>
+         <><Spinner/> <span className='text-green-400'>generating...</span></>  : ""}</p>
     </div>
       <div className='max-w-sm mx-right mt-8 flex-1 p-3 bg-white rounded-md'>
       {show && <RandomGraph data={data}/>}
