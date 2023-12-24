@@ -2,6 +2,8 @@ import { useState } from 'react';
 import RandomGraph from './RandomGraph';
 import axios from 'axios';
 import Spinner from './spinner';
+
+
 const GraphInfo = () => {
   const [side, setSide] = useState(100);
   const [choice, setChoice] = useState(0);
@@ -12,6 +14,7 @@ const GraphInfo = () => {
   const [data, setData] = useState(null);
   const [error,setError]=useState(false);
   const [selectedOption, setSelectedOption] = useState('fieldrp');
+  console.log("data=",data)
   const handleRadioChange = (event) => {
     setSelectedOption(event.target.value);
   };
@@ -137,7 +140,8 @@ const GraphInfo = () => {
                 <><Spinner/> <span className='text-green-400'>generating...</span></>  : ""}</p>
     </div>
       <div className='mt-8 w-full flex-1 p-3 bg-white rounded-md'>
-      {show && <RandomGraph data={data}/>}
+      {!show && <RandomGraph data={data}/>}
+      {/* <LineChartExample/> */}
       {error ? <p className='text-green-300'>Couldn &apos;t generate the graph </p>:''}
       </div>
     </div>
