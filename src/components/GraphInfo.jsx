@@ -2,7 +2,11 @@ import { useState } from 'react';
 import RandomGraph from './RandomGraph';
 import axios from 'axios';
 import Spinner from './spinner';
+//import Charts from './Chart';
+
+//import useGoogleCharts from './useGoogleCharts';
 const GraphInfo = () => {
+  //const google=useGoogleCharts();
   const [side, setSide] = useState(100);
   const [choice, setChoice] = useState(0);
   const [value, setValue] = useState(10);
@@ -40,6 +44,7 @@ const GraphInfo = () => {
       }
       setGenerating(false);
       setData(response.data.listOfPoints);
+      console.log("response",response.data.listOfPoints)
       setShow(true);
     } catch (error) {
       setError(true);
@@ -82,7 +87,7 @@ const GraphInfo = () => {
                   onChange={(e) => setSide(e.target.value)}
                 />
                 </label>
-              </>
+              </div>
 
         {/* <div className="mb-4"> */}
           <label className=" text-sm font-medium text-gray-600">Selection:
@@ -110,7 +115,7 @@ const GraphInfo = () => {
         // </div>)
         }
 
-              {selectedOption !== 'exelrp' &&(<div>
+              {selectedOption !== 'exelrp' &&(<>
                 <label className="block text-sm font-medium text-gray-600">Value:
                 <input
                   type="number"
@@ -119,10 +124,10 @@ const GraphInfo = () => {
                   onChange={(e) => setValue(e.target.value)}
                 />
                 </label>
-              </div>)}
+              </>)}
             </div>
               <button
-                className="bg-green-700 hover:bg-green-600text-center text-white px-4 py-2 rounded-md w-auto"
+                className="bg-green-700 flex justify-center hover:bg-green-600 mx-auto text-white px-4 py-2  rounded-md w-auto"
                 type='submit'
               >
                 Generate Random Graph
@@ -132,8 +137,13 @@ const GraphInfo = () => {
       </form>
       <p>{generating ? <><Spinner/> <span className='text-green-400'>generating...</span></>  : ""}</p>
     </div>
-      <div className='max-w-sm mx-right mt-8 flex-1 p-3 bg-white rounded-md'>
-      {show && <RandomGraph data={data}/>}
+      <div className='w-full mx-auto mt-8 flex-1 p-3 bg-white rounded-md'>
+      {show &&<RandomGraph data={data}/>  }
+      {
+      // <Charts/>
+      /* <RandomGraph data={data}/> 
+      */
+      }
       {error ? <p className='text-green-300'>Couldn &apos;t generate the graph </p>:''}
       </div>
   </div>

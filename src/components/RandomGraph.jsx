@@ -42,39 +42,45 @@ function findMinMax(dataArray,axis) {
 }
 
 // eslint-disable-next-line react/prop-types
-const RandomGraph=()=> {
-  const datas=[[-1,-3],[-4,-5],[-3,-6],[-2,-6],[-8,10]]
- const [minX,maxX]=findMinMax(datas,'x');
- const [minY]=findMinMax(datas,'y');
+const RandomGraph=({data})=> {
+  //const datas=[[-1,-3],[-4,-5],[-3,-6],[-2,-6],[-8,10]]
+ const [minX]=findMinMax(data,'x');
+ const [minY]=findMinMax(data,'y');
 
- const minXAxis=parseInt(minX);
- const maxXAxis=parseInt(maxX);
-const tickedvalue=[minXAxis,maxXAxis];
-console.log("ticked",tickedvalue);
-
+//  const minXAxis=parseInt(minX);
+//  const maxXAxis=parseInt(maxX);
+//const tickedvalue=[minXAxis,maxXAxis];
+/*
 const chartEvents = [
   {
-    eventName: 'select',
+    eventName: 'ready',
     callback: ({ chartWrapper }) => {
-      console.log('Selected:', chartWrapper.getChart().getSelection());
+      new chartWrapper.getChart();
+      const dataTable = chartWrapper.getDataTable();
+        console.log("datas",dataTable);
+      // Set a custom shape for the first point
+   
+
+  
+
+     
     },
   },
-];
-
+];*/
   return (
     <>
     {/* <h3 className='text-1xl text-[#005734] font-semibold text-center mb-1'>Random Chart</h3> */}
     <Chart
       chartType="LineChart"
-      data={[["X","Y"],...datas]}
-      chartEvents={chartEvents}
+      data={[["X","Y"],...data]}
       width="96%"
      
       height="400px"
       options={{
        
-        curveType: 'function',
-        
+        //curveType: 'function',
+        series: {
+          0: { pointShape: { type: 'polygon', sides: 5 } }},
         hAxis: {
           title: 'X-Axis',
         
@@ -98,7 +104,7 @@ const chartEvents = [
           },
            viewWindow: {
              min: minY, // Adjust the min value based on the data
-          //   max: maxY,  // Adjust the max value based on the data
+            // max: maxY,  // Adjust the max value based on the data
            },
         },
         chartArea:{
@@ -107,19 +113,18 @@ const chartEvents = [
         },
        
         legend: 'none',
-        pointSize:20,
-        pointShape: {  type: 'star',
-        sides: 3,
-        dent: 0.2,
-
-        rotation: 90,
+        pointSize:8,
+        pointShape: {  type: 'polygon',
+        sides: 2.5,
+        dent: 0.8,
+        //rotation:-180
        
       },
       
         colors: ['green'],
         backgroundColor:'rgb(229 231 235)'
       }}    
-      
+     // chartEvents={chartEvents}
     />
     </>
   );
