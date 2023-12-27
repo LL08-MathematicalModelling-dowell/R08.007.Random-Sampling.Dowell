@@ -44,8 +44,8 @@ function findMinMax(dataArray,axis) {
 // eslint-disable-next-line react/prop-types
 const RandomGraph=({data})=> {
   //const datas=[[-1,-3],[-4,-5],[-3,-6],[-2,-6],[-8,10]]
- const [minX]=findMinMax(data,'x');
- const [minY]=findMinMax(data,'y');
+ const [minX,maxX]=findMinMax(data,'x');
+ const [minY,maxY]=findMinMax(data,'y');
 
 //  const minXAxis=parseInt(minX);
 //  const maxXAxis=parseInt(maxX);
@@ -86,12 +86,12 @@ const chartEvents = [
         
           baseline: 0,
           gridlines: {
-           // color:'transparent',
-            count: -1, // -1 to display default number of gridlines
+           //color:'transparent',
+            //count: -1, // -1 to display default number of gridlines
           },
            viewWindow: {
-            min: minX, // Adjust the min value based on  data
-          //   max: maxX,  // Adjust the max value based on data
+            min: minX-20, // Adjust the min value based on  data
+            max: maxX+20,  // Adjust the max value based on data
            },
          // ticks: tickedvalue,
         },
@@ -103,8 +103,8 @@ const chartEvents = [
             count: -1, // -1 to display default number of gridlines
           },
            viewWindow: {
-             min: minY, // Adjust the min value based on the data
-            // max: maxY,  // Adjust the max value based on the data
+             min: minY-20, // Adjust the min value based on the data
+             max: maxY+20,  // Adjust the max value based on the data
            },
         },
         chartArea:{
