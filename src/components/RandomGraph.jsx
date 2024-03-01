@@ -1,132 +1,123 @@
+/* eslint-disable react/prop-types */
+// /* eslint-disable react/prop-types */
 
-import { Chart} from 'react-google-charts';
 
+import React from 'react';
 
-function findMinMax(dataArray,axis) {
-  if (!dataArray || dataArray.length === 0) {
-    return null;
-  }
+const RandomGraph = ({ data }) => {
+  const side = data?.input_data.side;
+  const listOfPoints = data.listOfPoints;
+  const pixelsPerCm = 38; // Approximation of 1cm in pixels
+  const padding = 40; // Padding around the SVG content, in pixels
+  const halfSide = side / 2;
+  const svgSize = side * pixelsPerCm + padding * 2; // Dynamic SVG size based on side
 
-  let min = Number.MAX_VALUE;
-  let max = Number.MIN_VALUE;
+  // Initial viewBox state
+ // Initial viewBox state
+ const [viewBox, setViewBox] = React.useState({ minX: 0, minY: 0, width: svgSize, height: svgSize });
+ const [isPanning, setIsPanning] = React.useState(false);
+ const [startPan, setStartPan] = React.useState({ x: null, y: null });
+  // Convert data points to SVG coordinates
+  const points = listOfPoints.map(([x, y]) => ({
+    x: (x + halfSide) * pixelsPerCm + padding,
+    y: svgSize - ((y + halfSide) * pixelsPerCm + padding),
+  }));
 
-  // Iterate through the outer array
-  for (const innerArray of dataArray) {
-    // Check if the inner array is present and not empty
-    if (innerArray && innerArray.length > 0) {
-      // Iterate through the inner array using destructuring
-      if(axis==='x') {
-        // Update min and max values
-        if (innerArray[0] < min) {
-          min = innerArray[0] ;
-        }
+  // SVG path for the line
+  const pathData = points.map((point, i) => `${i === 0 ? 'M' : 'L'} ${point.x},${point.y}`).join(' ');
 
-        if (innerArray[0] > max) {
-          max = innerArray[0];
-        }
-      }
-      if(axis==='y') {
-        // Update min and max values
-        if (innerArray[1] < min) {
-          min = innerArray[1] ;
-        }
+  // Generate axis numbers
+  const axisNumbers = Array.from({ length: side + 1 }, (_, i) => i - halfSide).filter(n => n !== 0);
 
-        if (innerArray[1] > max) {
-          max = innerArray[1];
-        }
-      } 
+  // Function to update the viewBox for zooming
+  const zoom = (inOrOut) => {
+    const factor = inOrOut === 'in' ? 0.8 : 1.2; // Zoom in or out
+    const newWidth = viewBox.width * factor;
+    const newHeight = viewBox.height * factor;
+    const newMinX = viewBox.minX + (viewBox.width - newWidth) / 2;
+    const newMinY = viewBox.minY + (viewBox.height - newHeight) / 2;
+    setViewBox({
+      minX: newMinX,
+      minY: newMinY,
+      width: newWidth,
+      height: newHeight
+    });
+  };
+
+   // Start panning
+   const startPanning = (event) => {
+    setIsPanning(true);
+    setStartPan({ x: event.clientX, y: event.clientY });
+  };
+
+  // End panning
+  const endPanning = () => {
+    setIsPanning(false);
+    setStartPan({ x: null, y: null });
+  };
+
+  // Perform panning
+  const pan = (event) => {
+    if (isPanning) {
+      const dx = (event.clientX - startPan.x) * (viewBox.width / svgSize);
+      const dy = (event.clientY - startPan.y) * (viewBox.height / svgSize);
+      setViewBox({
+        minX: viewBox.minX - dx,
+        minY: viewBox.minY - dy,
+        width: viewBox.width,
+        height: viewBox.height,
+      });
+      setStartPan({ x: event.clientX, y: event.clientY });
     }
-  }
+  };
 
-  return [min, max];
-}
 
-// eslint-disable-next-line react/prop-types
-const RandomGraph=({data})=> {
-  //const datas=[[-1,-3],[-4,-5],[-3,-6],[-2,-6],[-8,10]]
- const [minX,maxX]=findMinMax(data,'x');
- const [minY,maxY]=findMinMax(data,'y');
-
-//  const minXAxis=parseInt(minX);
-//  const maxXAxis=parseInt(maxX);
-//const tickedvalue=[minXAxis,maxXAxis];
-/*
-const chartEvents = [
-  {
-    eventName: 'ready',
-    callback: ({ chartWrapper }) => {
-      new chartWrapper.getChart();
-      const dataTable = chartWrapper.getDataTable();
-        console.log("datas",dataTable);
-      // Set a custom shape for the first point
-   
-
-  
-
-     
-    },
-  },
-];*/
   return (
-    <>
-    {/* <h3 className='text-1xl text-[#005734] font-semibold text-center mb-1'>Random Chart</h3> */}
-    <Chart
-      chartType="LineChart"
-      data={[["X","Y"],...data]}
-      width="96%"
-     
-      height="400px"
-      options={{
-       
-        //curveType: 'function',
-        series: {
-          0: { pointShape: { type: 'polygon', sides: 5 } }},
-        hAxis: {
-          title: 'X-Axis',
-        
-          baseline: 0,
-          gridlines: {
-           //color:'transparent',
-            //count: -1, // -1 to display default number of gridlines
-          },
-           viewWindow: {
-            min: minX-20, // Adjust the min value based on  data
-            max: maxX+20,  // Adjust the max value based on data
-           },
-         // ticks: tickedvalue,
-        },
-        vAxis: {
-          baseline: 0,      
-          title: 'Y-Axis',
-          gridlines: {
-            //color:'transparent',
-            count: -1, // -1 to display default number of gridlines
-          },
-           viewWindow: {
-             min: minY-20, // Adjust the min value based on the data
-             max: maxY+20,  // Adjust the max value based on the data
-           },
-        },
-        chartArea:{
-           width:'70%',
-           height:'70%'
-        },
-       
-        legend: 'none',
-        pointSize:8,
-        pointShape: {  type: 'polygon',
-        sides: 2.5,
-        dent: 0.8,
-        //rotation:-180
-       
-      },
-      
-        colors: ['green'],
-        backgroundColor:'rgb(229 231 235)'
-      }}    
-     // chartEvents={chartEvents}
-    />
-    </>
+    <div className="w-full">
+      <button onClick={() => zoom('in')}>+</button>
+      <button onClick={() => zoom('out')}>- </button>
+      {/* <svg width={svgSize} height={svgSize} viewBox={viewBox}> */}
+      <svg
+        width="100%"
+        height="100%"
+        viewBox={`${viewBox.minX} ${viewBox.minY} ${viewBox.width} ${viewBox.height}`}
+        onMouseDown={startPanning}
+        onMouseMove={pan}
+        onMouseUp={endPanning}
+        onMouseLeave={endPanning}
+        style={{ border: '1px solid black', cursor: isPanning ? 'grabbing' : 'grab' }}
+      >
+        {/* Grid lines */}
+        {axisNumbers.map((num) => (
+          <React.Fragment key={num}>
+            <line x1={padding} y1={(num + halfSide) * pixelsPerCm + padding} x2={svgSize - padding} y2={(num + halfSide) * pixelsPerCm + padding} stroke="#e0e0e0" />
+            <line x1={(num + halfSide) * pixelsPerCm + padding} y1={padding} x2={(num + halfSide) * pixelsPerCm + padding} y2={svgSize - padding} stroke="#e0e0e0" />
+          </React.Fragment>
+        ))}
+        {/* Horizontal and Vertical lines */}
+        <line x1={padding} y1={svgSize / 2} x2={svgSize - padding} y2={svgSize / 2} stroke="black" />
+        <line x1={svgSize / 2} y1={padding} x2={svgSize / 2} y2={svgSize - padding} stroke="black" />
+        {/* Data path */}
+        <path d={pathData} fill="none" stroke="blue" />
+        {/* Axis numbers */}
+        {axisNumbers.filter(n => n !== 0).map((num) => (
+          <React.Fragment key={num}>
+            <text x={(num + halfSide) * pixelsPerCm + padding} y={svgSize / 2 + 15} fontSize="12" textAnchor="middle">
+              {num}
+            </text>
+            <text x={svgSize / 2 + 5} y={svgSize - (num + halfSide) * pixelsPerCm - padding + 5} fontSize="12" textAnchor="middle">
+              {num}
+            </text>
+          </React.Fragment>
+        ))}
+        {/* Points with hover titles */}
+        {points.map((point, index) => (
+          <circle key={index} cx={point.x} cy={point.y} r={3} fill="red">
+            <title>{`X: ${listOfPoints[index][0]}, Y: ${listOfPoints[index][1]}`}</title>
+          </circle>
+        ))}
+      </svg>
+    </div>
   );
 };
 
